@@ -14,14 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
+  private lazy var appFlowCoordinator = AppFlowCoordinator(navigationController: UINavigationController())
+  
   // MARK: - Functions
   
   func application(
     _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController = UIViewController()
+    window?.rootViewController = appFlowCoordinator.navigationController
+    appFlowCoordinator.start()
+    
     window?.makeKeyAndVisible()
     
     return true
