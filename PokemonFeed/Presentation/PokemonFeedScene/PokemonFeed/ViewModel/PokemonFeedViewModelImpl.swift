@@ -15,6 +15,7 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   let screenTitle = NSLocalizedString("Pokemons", comment: "")
   
   var reloadContent: VoidCallback?
+  var onStateChange: ValueCallback<PokemonFeedViewModelState>?
   
   private let getPokemonFeedUseCase: GetPokemonFeedUseCase
   private var cancellable: Cancellable?
@@ -31,11 +32,21 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
     cancellable?.cancel()
     
     cancellable = getPokemonFeedUseCase.invoke()
-      .sink(receiveCompletion: { _ in
+      .handleEvents(receiveSubscription: { [weak self] _ in
+          self?.onStateChange?(.loading)
+        })
+      .sink(receiveCompletion: { [weak self] completion in
+        guard let self = self else { return }
         
+        switch completion {
+        case .finished:
+          self.onStateChange?(.dataLoaded)
+        case .failure:
+          self.onStateChange?(.error)
+        }
       }, receiveValue: { [weak self] pokemons in
         guard let self = self else { return }
-        debugPrint("😀 pokemons count \(pokemons.count)")
+        
         self.updateContent(with: self.buildContent(pokemons))
         self.reloadContent?()
       })

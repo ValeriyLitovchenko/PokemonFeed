@@ -14,4 +14,6 @@ final class PokemonFeedControllerView: BaseTableViewControllerView {
   override var usedCells: [UITableViewCell.Type] {
     [PokemonFeedItemCell.self]
   }
+  
+  private(set) lazy var activityIndicator = addActivityIndicatorView()
 }
