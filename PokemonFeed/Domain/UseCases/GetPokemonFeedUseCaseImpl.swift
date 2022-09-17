@@ -10,7 +10,7 @@ import Combine
 struct GetPokemonFeedUseCaseImpl: GetPokemonFeedUseCase {
   let pokemonFeedRepository: PokemonFeedRepository
   
-  func invoke() -> AnyPublisher<[Pokemon], Error> {
-    pokemonFeedRepository.getPokemonFeed()
+  func invoke(query: PokemonFeedQuery?) -> AnyPublisher<[Pokemon], Error> {
+    pokemonFeedRepository.getPokemonFeed(query: query)
   }
 }

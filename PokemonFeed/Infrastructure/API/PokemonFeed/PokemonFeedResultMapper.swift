@@ -14,34 +14,15 @@ enum PokemonFeedResultMapper {
   
   // MARK: - Functions
   
-  static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonFeedPage {
+  static func map(_ data: Data, from response: HTTPURLResponse) throws -> [Pokemon] {
     try HTTPURLResponseValidator.validate(response)
-    return try JSONDecoder().decode(PokemonFeedPageDTO.self, from: data)
+    let page = try JSONDecoder().decode(PokemonFeedPageDTO.self, from: data)
+    return page.results
   }
 }
 
-private struct PokemonFeedPageDTO: PokemonFeedPage, Decodable {
-  
-  // MARK: - Properties
-  
-  let totalCount: Int
-  var pokemons: [Pokemon] {
-    results
-  }
-  private let results: [PokemonDTO]
-  
-  enum CodingKeys: String, CodingKey {
-    case count
-    case results
-  }
-  
-  // MARK: - Constructor
-  
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    totalCount = try container.decode(Int.self, forKey: .count)
-    results = try container.decode([PokemonDTO].self, forKey: .results)
-  }
+private struct PokemonFeedPageDTO: Decodable {
+  let results: [PokemonDTO]
 }
 
 private struct PokemonDTO: Pokemon, Decodable {

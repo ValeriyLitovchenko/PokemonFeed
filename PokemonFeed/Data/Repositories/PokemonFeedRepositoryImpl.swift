@@ -26,8 +26,13 @@ final class PokemonFeedRepositoryImpl: PokemonFeedRepository {
   
   // MARK: - Functions
   
-  func getPokemonFeed() -> AnyPublisher<[Pokemon], Error> {
-    pokemonFeedStorage.getPokemonFeed()
+  func getPokemonFeed(query: PokemonFeedQuery?) -> AnyPublisher<[Pokemon], Error> {
+    var requestDTO: PokemonFeedRequestDTO?
+    if let query = query?.value {
+      requestDTO = PokemonFeedRequestDTO(query: query)
+    }
+    
+    return pokemonFeedStorage.getPokemonFeed(for: requestDTO)
       .tryCatch { [weak self, pokemonFeedStorage] _ -> AnyPublisher<[Pokemon], Error> in
         guard let self = self else {
           return Empty<[Pokemon], Error>().eraseToAnyPublisher()
@@ -35,6 +40,9 @@ final class PokemonFeedRepositoryImpl: PokemonFeedRepository {
         
         return self.getPokemonFeedFromNetwork()
           .handleEvents(receiveOutput: pokemonFeedStorage.save(pokemonFeed:))
+          .flatMap { _ in
+            pokemonFeedStorage.getPokemonFeed(for: requestDTO)
+          }
           .eraseToAnyPublisher()
       }
       .eraseToAnyPublisher()
@@ -50,7 +58,6 @@ final class PokemonFeedRepositoryImpl: PokemonFeedRepository {
         networkService.request(
           urlRequest: PokemonFeedApiEndpoint.getPokemonFeed(limit: totalCount).urlRequest(baseURL:))
           .tryMap(PokemonFeedResultMapper.map)
-          .map(\.pokemons)
       }
       .eraseToAnyPublisher()
   }
