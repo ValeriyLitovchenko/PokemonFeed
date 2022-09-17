@@ -11,4 +11,8 @@ extension String {
   var nilIfEmpty: String? {
     isEmpty ? nil : self
   }
+  
+  var firstUppercased: String {
+    prefix(1).uppercased() + dropFirst().lowercased()
+  }
 }

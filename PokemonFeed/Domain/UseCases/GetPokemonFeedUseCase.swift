@@ -8,5 +8,5 @@
 import Combine
 
 protocol GetPokemonFeedUseCase {
-  func invoke() -> AnyPublisher<[Pokemon], Error>
+  func invoke(query: PokemonFeedQuery?) -> AnyPublisher<[Pokemon], Error>
 }

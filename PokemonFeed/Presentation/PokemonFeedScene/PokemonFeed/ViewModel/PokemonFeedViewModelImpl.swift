@@ -33,9 +33,28 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   // MARK: - Functions
   
   func loadData() {
+    performSearch()
+  }
+  
+  func performSearch(with query: String? = nil) {
     cancellable?.cancel()
     
-    cancellable = getPokemonFeedUseCase.invoke()
+    let getFeedOperation: AnyPublisher<[Pokemon], Error>
+    if let query = query {
+      getFeedOperation = Just(PokemonFeedQuery(value: query))
+        .setFailureType(to: Error.self)
+        .delay(
+          for: PokemonFeedViewModelImpl.Constants.searchOperationDelay,
+          scheduler: RunLoop.main)
+        .flatMap { [getPokemonFeedUseCase] query in
+          getPokemonFeedUseCase.invoke(query: query)
+        }
+        .eraseToAnyPublisher()
+    } else {
+       getFeedOperation = getPokemonFeedUseCase.invoke(query: nil)
+    }
+    
+    cancellable = getFeedOperation
       .handleEvents(receiveSubscription: { [weak self] _ in
           self?.onStateChange?(.loading)
         })
@@ -56,16 +75,12 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
       })
   }
   
-  func performSearch(with query: String?) {
-    // TODO: - Add search functionality
-  }
-  
   // MARK: - Private functions
   
   private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
     let items = pokemons.map { pokemon in
       PokemonFeedItemCellViewModel(
-        title: pokemon.name,
+        title: pokemon.name.firstUppercased,
         sprite: pokemon.sprite,
         onAction: {})
     }

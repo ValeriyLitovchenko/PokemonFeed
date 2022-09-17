@@ -8,6 +8,6 @@
 import Combine
 
 protocol PokemonFeedStorage {
-  func getPokemonFeed() -> AnyPublisher<[Pokemon], Error>
+  func getPokemonFeed(for request: PokemonFeedRequestDTO?) -> AnyPublisher<[Pokemon], Error>
   func save(pokemonFeed: [Pokemon])
 }

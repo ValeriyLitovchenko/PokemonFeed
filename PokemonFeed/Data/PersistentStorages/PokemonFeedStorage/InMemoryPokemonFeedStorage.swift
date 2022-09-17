@@ -5,6 +5,7 @@
 //  Created by Valeriy L on 17.09.2022.
 //
 
+import Foundation
 import Combine
 
 final class InMemoryPokemonFeedStorage: PokemonFeedStorage {
@@ -19,7 +20,7 @@ final class InMemoryPokemonFeedStorage: PokemonFeedStorage {
   
   // MARK: - Functions
   
-  func getPokemonFeed() -> AnyPublisher<[Pokemon], Swift.Error> {
+  func getPokemonFeed(for request: PokemonFeedRequestDTO?) -> AnyPublisher<[Pokemon], Swift.Error> {
     guard let pokemonFeed = self.pokemonFeed else {
       return Fail(
         outputType: [Pokemon].self,
@@ -27,9 +28,20 @@ final class InMemoryPokemonFeedStorage: PokemonFeedStorage {
       .eraseToAnyPublisher()
     }
     
-    return Just(pokemonFeed)
-      .setFailureType(to: Swift.Error.self)
-      .eraseToAnyPublisher()
+    guard let query = request?.query.lowercased() else {
+      return Just(pokemonFeed)
+        .setFailureType(to: Swift.Error.self)
+        .eraseToAnyPublisher()
+    }
+    
+    return Deferred {
+      Future { promise in
+        let filtered = pokemonFeed.filter { $0.name.hasPrefix(query) }
+        promise(.success(filtered))
+      }
+    }
+    .subscribe(on: DispatchQueue.global(qos: .userInitiated))
+    .eraseToAnyPublisher()
   }
   
   func save(pokemonFeed: [Pokemon]) {

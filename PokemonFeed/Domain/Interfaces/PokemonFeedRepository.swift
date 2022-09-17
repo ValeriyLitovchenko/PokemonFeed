@@ -8,5 +8,5 @@
 import Combine
 
 protocol PokemonFeedRepository {
-  func getPokemonFeed() -> AnyPublisher<[Pokemon], Error>
+  func getPokemonFeed(query: PokemonFeedQuery?) -> AnyPublisher<[Pokemon], Error>
 }
