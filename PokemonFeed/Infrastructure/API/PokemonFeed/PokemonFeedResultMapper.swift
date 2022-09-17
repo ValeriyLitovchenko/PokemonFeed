@@ -15,16 +15,8 @@ enum PokemonFeedResultMapper {
   // MARK: - Functions
   
   static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonFeedPage {
-    try validate(response)
+    try HTTPURLResponseValidator.validate(response)
     return try JSONDecoder().decode(PokemonFeedPageDTO.self, from: data)
-  }
-  
-  // MARK: - Private functions
-  
-  private static func validate(_ response: HTTPURLResponse) throws {
-    guard response.isSuccessful else {
-      throw PokemonFeedResultMapper.Error.unsupportedStatusCode(response.statusCode)
-    }
   }
 }
 

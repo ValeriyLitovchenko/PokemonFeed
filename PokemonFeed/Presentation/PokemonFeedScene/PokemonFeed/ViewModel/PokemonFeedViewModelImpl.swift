@@ -35,7 +35,7 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         
       }, receiveValue: { [weak self] pokemons in
         guard let self = self else { return }
-        
+        debugPrint("😀 pokemons count \(pokemons.count)")
         self.updateContent(with: self.buildContent(pokemons))
         self.reloadContent?()
       })

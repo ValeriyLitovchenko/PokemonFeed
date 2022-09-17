@@ -27,7 +27,9 @@ final class PokemonFeedSceneDIContainer {
   
   var getPokemonFeedUseCase: GetPokemonFeedUseCase {
     GetPokemonFeedUseCaseImpl(
-      pokemonFeedRepository: PokemonFeedRepositoryImpl(networkService: dependencies.networkService))
+      pokemonFeedRepository: PokemonFeedRepositoryImpl(
+        networkService: dependencies.networkService,
+        pokemonFeedStorage: InMemoryPokemonFeedStorage()))
   }
   
   // MARK: - Flow Coordinators
