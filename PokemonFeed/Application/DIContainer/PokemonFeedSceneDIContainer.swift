@@ -9,10 +9,25 @@ import UIKit
 
 final class PokemonFeedSceneDIContainer {
   
+  private struct Dependencies {
+    let networkService: NetworkService
+  }
+  
+  // MARK: - Properties
+  
+  private let dependencies: Dependencies
+  
+  // MARK: - Constructor
+  
+  init(networkService: NetworkService) {
+    dependencies = Dependencies(networkService: networkService)
+  }
+  
   // MARK: - UseCases
   
   var getPokemonFeedUseCase: GetPokemonFeedUseCase {
-    GetPokemonFeedUseCaseMOC()
+    GetPokemonFeedUseCaseImpl(
+      pokemonFeedRepository: PokemonFeedRepositoryImpl(networkService: dependencies.networkService))
   }
   
   // MARK: - Flow Coordinators

@@ -9,9 +9,16 @@ import Foundation
 
 final class AppDIContainer {
   
+  // MARK: - Properties
+  
+  private lazy var networkService: NetworkService = RestApiNetworkService(
+    // swiftlint:disable force_unwrapping
+    baseURL: URL(string: "https://pokeapi.co/api/v2")!,
+    httpClient: URLSessionHTTPClient(session: URLSession(configuration: .ephemeral)))
+  
   // MARK: - DIContainers of scenes
   
   var pokemonFeedSceneDependencies: PokemonFeedSceneDIContainer {
-    PokemonFeedSceneDIContainer()
+    PokemonFeedSceneDIContainer(networkService: networkService)
   }
 }

@@ -49,6 +49,8 @@ final class URLSessionHTTPClient: HTTPClient {
         })
       })
     
+    task.resume()
+    
     return URLSessionTaskWrapper(wrappedTask: task)
   }
   
