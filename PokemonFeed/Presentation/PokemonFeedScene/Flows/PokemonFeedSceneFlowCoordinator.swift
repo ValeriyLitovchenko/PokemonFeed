@@ -8,7 +8,8 @@
 import UIKit
 
 protocol PokemonFeedSceneFlowCoordinatorDependencies {
-  func makePokemonFeedController() -> UIViewController
+  func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController
+  func makePokemonDetailsController(inputModel: PokemonDetailsInput) -> UIViewController
 }
 
 final class PokemonFeedSceneFlowCoordinator {

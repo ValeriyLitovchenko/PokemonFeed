@@ -46,4 +46,9 @@ extension PokemonFeedSceneDIContainer: PokemonFeedSceneFlowCoordinatorDependenci
     let viewModel = PokemonFeedViewModelImpl(getPokemonFeedUseCase: getPokemonFeedUseCase)
     return PokemonFeedController(viewModel: viewModel)
   }
+  
+  func makePokemonDetailsController(with inputModel: PokemonDetailsInput) -> UIViewController {
+    let viewModel = PokemonDetailsViewModelImpl(inputModel: inputModel)
+    return PokemonDetailsController(viewModel: viewModel)
+  }
 }
