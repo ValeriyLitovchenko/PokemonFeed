@@ -54,5 +54,8 @@ final class PokemonFeedItemCell: BaseTableCell {
     self.model = model
     
     pokemonTitleLabel.text = model.title
+    pokemonSpriteView.setImage(
+      with: model.sprite,
+      noImagePlaceholder: DefinedImages.pokeball.image)
   }
 }
