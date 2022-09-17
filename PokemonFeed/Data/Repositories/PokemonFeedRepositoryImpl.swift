@@ -58,7 +58,6 @@ final class PokemonFeedRepositoryImpl: PokemonFeedRepository {
         networkService.request(
           urlRequest: PokemonFeedApiEndpoint.getPokemonFeed(limit: totalCount).urlRequest(baseURL:))
           .tryMap(PokemonFeedResultMapper.map)
-          .map(\.pokemons)
       }
       .eraseToAnyPublisher()
   }
