@@ -15,6 +15,8 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     viewModel.content
   }
   
+  private lazy var keyboardObserver = KeyboardScrollViewObserver(scrollView: contentView.tableView)
+  
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
@@ -32,6 +34,9 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     
     title = viewModel.screenTitle
     
+    view.searchBar.delegate = self
+    view.searchBar.placeholder = viewModel.searchBarPlaceholder
+    
     viewModel.onStateChange = { state in
       view.activityIndicator.setIsAnimating(state == .loading)
     }
@@ -41,6 +46,37 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
         view.tableView.reloadData()
       }
     }
+    
+    keyboardObserver.startObservation()
+  }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension PokemonFeedController: UISearchBarDelegate {
+  
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    searchBar.setShowsCancelButton(true, animated: true)
   }
   
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    searchBar.setShowsCancelButton(false, animated: true)
+  }
+  
+  func searchBar(
+    _ searchBar: UISearchBar,
+    textDidChange searchText: String
+  ) {
+    viewModel.performSearch(with: searchText.nilIfEmpty)
+  }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.resignFirstResponder()
+  }
+  
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.text = nil
+    viewModel.loadData()
+    searchBar.resignFirstResponder()
+  }
 }

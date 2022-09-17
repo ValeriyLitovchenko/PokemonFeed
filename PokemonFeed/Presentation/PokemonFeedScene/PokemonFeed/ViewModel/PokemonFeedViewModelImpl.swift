@@ -9,11 +9,15 @@ import Foundation
 import Combine
 
 final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewModel {
+  private enum Constants {
+    static let searchOperationDelay = RunLoop.SchedulerTimeType.Stride(0.18)
+  }
   
   // MARK: - Properties
   
   let screenTitle = NSLocalizedString("Pokemons", comment: "")
-  
+  let searchBarPlaceholder = NSLocalizedString("Enter pokemon name", comment: "")
+    
   var reloadContent: VoidCallback?
   var onStateChange: ValueCallback<PokemonFeedViewModelState>?
   
@@ -50,6 +54,10 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         self.updateContent(with: self.buildContent(pokemons))
         self.reloadContent?()
       })
+  }
+  
+  func performSearch(with query: String?) {
+    // TODO: - Add search functionality
   }
   
   // MARK: - Private functions

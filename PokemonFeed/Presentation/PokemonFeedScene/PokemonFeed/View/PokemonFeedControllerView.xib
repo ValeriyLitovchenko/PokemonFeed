@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokemonFeedControllerView" customModule="PokemonFeed" customModuleProvider="target">
             <connections>
+                <outlet property="searchBar" destination="HER-9N-1dT" id="x0v-EJ-Tvd"/>
                 <outlet property="tableView" destination="uCt-WQ-xYf" id="0JS-1H-RS5"/>
             </connections>
         </placeholder>
@@ -20,17 +21,24 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uCt-WQ-xYf">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="HER-9N-1dT">
+                    <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="hVx-Do-b2o"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hVx-Do-b2o" firstAttribute="bottom" secondItem="uCt-WQ-xYf" secondAttribute="bottom" id="2uZ-Yb-xY1"/>
+                <constraint firstItem="HER-9N-1dT" firstAttribute="trailing" secondItem="hVx-Do-b2o" secondAttribute="trailing" id="D9Q-g8-CHK"/>
+                <constraint firstItem="HER-9N-1dT" firstAttribute="leading" secondItem="hVx-Do-b2o" secondAttribute="leading" id="Diw-xd-5kp"/>
                 <constraint firstItem="uCt-WQ-xYf" firstAttribute="leading" secondItem="rPC-nE-LNh" secondAttribute="leading" id="EJg-Oe-Qb8"/>
+                <constraint firstItem="HER-9N-1dT" firstAttribute="top" secondItem="hVx-Do-b2o" secondAttribute="top" id="TG1-l7-g00"/>
                 <constraint firstItem="hVx-Do-b2o" firstAttribute="trailing" secondItem="uCt-WQ-xYf" secondAttribute="trailing" id="XO3-TT-di4"/>
-                <constraint firstItem="uCt-WQ-xYf" firstAttribute="top" secondItem="hVx-Do-b2o" secondAttribute="top" id="qq2-zS-N5S"/>
+                <constraint firstItem="uCt-WQ-xYf" firstAttribute="top" secondItem="HER-9N-1dT" secondAttribute="bottom" id="dmf-k2-1zi"/>
             </constraints>
             <point key="canvasLocation" x="139" y="101"/>
         </view>
