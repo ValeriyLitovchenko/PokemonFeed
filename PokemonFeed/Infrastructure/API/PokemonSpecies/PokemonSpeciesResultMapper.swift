@@ -62,12 +62,12 @@ private struct PokemonSpeciesDTO: PokemonSpecies, Decodable {
     
     let growthRateContainer = try container.nestedContainer(
       keyedBy: GrowthRateCodingKeys.self,
-      forKey: CodingKeys.generation)
+      forKey: CodingKeys.growthRate)
     growthRate = try growthRateContainer.decode(String.self, forKey: .name)
     
     let habitatContainer = try container.nestedContainer(
       keyedBy: HabitatCodingKeys.self,
-      forKey: CodingKeys.generation)
+      forKey: CodingKeys.habitat)
     habitat = try habitatContainer.decode(String.self, forKey: .name)
   }
 }
