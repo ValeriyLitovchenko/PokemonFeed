@@ -19,6 +19,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   private let pokemonId: String
   
   private let getPokemonDetailsUseCase: GetPokemonDetailsUseCase
+  private let getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase
   
   private var cancelable: Cancellable?
   
@@ -26,24 +27,28 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   init(
     inputModel: PokemonDetailsInputModel,
-    getPokemonDetailsUseCase: GetPokemonDetailsUseCase
+    getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
+    getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase
   ) {
     screenTitle = inputModel.pokemonName
     pokemonId = inputModel.pokemonId
     self.getPokemonDetailsUseCase = getPokemonDetailsUseCase
+    self.getPokemonSpeciesUseCase = getPokemonSpeciesUseCase
   }
   
   // MARK: - Functions
   
   func loadData() {
-    cancelable = getPokemonDetailsUseCase.invoke(pokemonId)
+    cancelable = Publishers.Zip(
+      getPokemonDetailsUseCase.invoke(pokemonId),
+      getPokemonSpeciesUseCase.invoke(pokemonId))
       .sink(
         receiveCompletion: { _ in
           
-        }, receiveValue: { [weak self] details in
+        }, receiveValue: { [weak self] details, species in
           guard let self = self else { return }
           
-          let content = self.buildContent(with: details)
+          let content = self.buildContent(with: details, species: species)
           self.updateContent(with: content)
           self.reloadContent?()
         })
@@ -51,7 +56,10 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   // MARK: - Private functions
   
-  private func buildContent(with details: PokemonDetails) -> [TableSectionModel] {
+  private func buildContent(
+    with details: PokemonDetails,
+    species: PokemonSpecies?
+  ) -> [TableSectionModel] {
     [
       buildImageSection(details),
       buildAttributesSection(details)

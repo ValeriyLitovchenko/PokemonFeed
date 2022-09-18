@@ -25,15 +25,19 @@ final class PokemonFeedSceneDIContainer {
   
   // MARK: - UseCases
   
-  var getPokemonFeedUseCase: GetPokemonFeedUseCase {
+  private var getPokemonFeedUseCase: GetPokemonFeedUseCase {
     GetPokemonFeedUseCaseImpl(
       pokemonFeedRepository: PokemonFeedRepositoryImpl(
         networkService: dependencies.networkService,
         pokemonFeedStorage: InMemoryPokemonFeedStorage()))
   }
   
-  var getPokemonDetailsUseCase: GetPokemonDetailsUseCase {
+  private var getPokemonDetailsUseCase: GetPokemonDetailsUseCase {
     GetPokemonDetailsUseCaseImpl(networkService: dependencies.networkService)
+  }
+  
+  private var getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase {
+    GetPokemonSpeciesUseCaseImpl(networkService: dependencies.networkService)
   }
   
   // MARK: - Flow Coordinators
@@ -50,13 +54,16 @@ extension PokemonFeedSceneDIContainer: PokemonFeedSceneFlowCoordinatorDependenci
     let viewModel = PokemonFeedViewModelImpl(
       getPokemonFeedUseCase: getPokemonFeedUseCase,
       actions: actions)
+    
     return PokemonFeedController(viewModel: viewModel)
   }
   
   func makePokemonDetailsController(inputModel: PokemonDetailsInputModel) -> UIViewController {
     let viewModel = PokemonDetailsViewModelImpl(
       inputModel: inputModel,
-      getPokemonDetailsUseCase: getPokemonDetailsUseCase)
+      getPokemonDetailsUseCase: getPokemonDetailsUseCase,
+      getPokemonSpeciesUseCase: getPokemonSpeciesUseCase)
+    
     return PokemonDetailsController(viewModel: viewModel)
   }
 }
