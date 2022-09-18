@@ -62,14 +62,17 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   ) -> [TableSectionModel] {
     [
       buildImageSection(details),
-      buildAttributesSection(details)
-    ]
+      buildAttributesSection(details),
+      buildAbilitiesSection(details),
+      buildSpeciesSection(species)
+    ].compactMap { $0 }
   }
   
   private func buildImageSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
       PokemonDetailsImageCellViewModel(sprite: details.sprite)
     ]
+    
     return TableSectionModel(items: items)
   }
   
@@ -86,6 +89,44 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
         name: NSLocalizedString("Weight", comment: "") + ":",
         value: "\(details.weight)")
     ]
+    
+    return TableSectionModel(items: items)
+  }
+  
+  private func buildAbilitiesSection(_ details: PokemonDetails) -> TableSectionModel {
+    let items = [
+      PokemonDetailsSectionTitleCellViewModel(
+        title: NSLocalizedString("Abilities", comment: "")),
+      
+      PokemonDetailsAbilitiesCellModel(
+        abilities: details.abilities.joined(separator: ", "))
+    ]
+    
+    return TableSectionModel(items: items)
+  }
+  
+  private func buildSpeciesSection(_ species: PokemonSpecies?) -> TableSectionModel? {
+    guard let species = species else {
+      return nil
+    }
+    
+    let items = [
+      PokemonDetailsSectionTitleCellViewModel(
+        title: NSLocalizedString("Species", comment: "")),
+      
+      PokemonDetailsAttributeCellViewModel(
+        name: NSLocalizedString("Generation:", comment: ""),
+        value: species.generation),
+      
+      PokemonDetailsAttributeCellViewModel(
+        name: NSLocalizedString("Growth Rate:", comment: ""),
+        value: species.growthRate),
+      
+      PokemonDetailsAttributeCellViewModel(
+        name: NSLocalizedString("Habitat:", comment: ""),
+        value: species.habitat)
+    ]
+    
     return TableSectionModel(items: items)
   }
 }

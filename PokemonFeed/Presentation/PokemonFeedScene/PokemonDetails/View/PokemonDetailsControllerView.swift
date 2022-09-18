@@ -15,6 +15,7 @@ final class PokemonDetailsControllerView: BaseTableViewControllerView {
     [
       PokemonDetailsImageCell.self,
       PokemonDetailsAttributeCell.self,
+      PokemonDetailsAbilitiesCell.self,
       PokemonDetailsSectionTitleCell.self
     ]
   }
