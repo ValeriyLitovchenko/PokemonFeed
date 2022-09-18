@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="63" id="aEp-IC-FRR" customClass="PokemonDetailsSectionTitleCell" customModule="PokemonFeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="295" height="63"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aEp-IC-FRR" id="p8q-gF-V6u">
+                <rect key="frame" x="0.0" y="0.0" width="295" height="63"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="998" verticalCompressionResistancePriority="998" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ont-Ec-4jf">
+                        <rect key="frame" x="10" y="10" width="275" height="43"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ont-Ec-4jf" secondAttribute="bottom" priority="998" constant="10" id="cNY-8l-ETj"/>
+                    <constraint firstAttribute="trailing" secondItem="ont-Ec-4jf" secondAttribute="trailing" priority="998" constant="10" id="fDQ-Vp-L0s"/>
+                    <constraint firstItem="ont-Ec-4jf" firstAttribute="top" secondItem="p8q-gF-V6u" secondAttribute="top" priority="998" constant="10" id="ggj-R0-qNT"/>
+                    <constraint firstItem="ont-Ec-4jf" firstAttribute="leading" secondItem="p8q-gF-V6u" secondAttribute="leading" priority="998" constant="10" id="nOQ-xT-hoa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="sectionTitleLabel" destination="ont-Ec-4jf" id="YsC-rN-tyo"/>
+            </connections>
+            <point key="canvasLocation" x="51.449275362318843" y="84.040178571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

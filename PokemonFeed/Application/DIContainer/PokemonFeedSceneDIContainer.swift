@@ -32,6 +32,10 @@ final class PokemonFeedSceneDIContainer {
         pokemonFeedStorage: InMemoryPokemonFeedStorage()))
   }
   
+  var getPokemonDetailsUseCase: GetPokemonDetailsUseCase {
+    GetPokemonDetailsUseCaseImpl(networkService: dependencies.networkService)
+  }
+  
   // MARK: - Flow Coordinators
   
   func makePokemonFeedSceneFlowCoordinator(navigationController: UINavigationController) -> PokemonFeedSceneFlowCoordinator {
@@ -45,13 +49,14 @@ extension PokemonFeedSceneDIContainer: PokemonFeedSceneFlowCoordinatorDependenci
   func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController {
     let viewModel = PokemonFeedViewModelImpl(
       getPokemonFeedUseCase: getPokemonFeedUseCase,
-      actions: actions
-    )
+      actions: actions)
     return PokemonFeedController(viewModel: viewModel)
   }
   
   func makePokemonDetailsController(inputModel: PokemonDetailsInputModel) -> UIViewController {
-    let viewModel = PokemonDetailsViewModelImpl(inputModel: inputModel)
+    let viewModel = PokemonDetailsViewModelImpl(
+      inputModel: inputModel,
+      getPokemonDetailsUseCase: getPokemonDetailsUseCase)
     return PokemonDetailsController(viewModel: viewModel)
   }
 }

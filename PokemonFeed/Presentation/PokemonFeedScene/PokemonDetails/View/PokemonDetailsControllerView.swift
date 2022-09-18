@@ -12,6 +12,10 @@ final class PokemonDetailsControllerView: BaseTableViewControllerView {
   // MARK: - Properties
   
   override var usedCells: [UITableViewCell.Type] {
-    []
+    [
+      PokemonDetailsImageCell.self,
+      PokemonDetailsAttributeCell.self,
+      PokemonDetailsSectionTitleCell.self
+    ]
   }
 }

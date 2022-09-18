@@ -32,6 +32,7 @@ final class PokemonDetailsController: BaseTableViewController<PokemonDetailsCont
     title = viewModel.screenTitle
     
     view.tableView.allowsSelection = false
+    view.tableView.separatorStyle = .none
     
     viewModel.reloadContent = {
       DispatchQueue.main.async(execute: view.tableView.reloadData)
