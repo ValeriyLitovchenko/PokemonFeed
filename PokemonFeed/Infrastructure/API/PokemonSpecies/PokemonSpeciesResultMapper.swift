@@ -8,9 +8,17 @@
 import Foundation
 
 enum PokemonSpeciesResultMapper {
+  private enum StatusCodes {
+    static let notFound = 404
+  }
+  
   static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonSpecies? {
-    try HTTPURLResponseValidator.validate(response)
-    return try JSONDecoder().decode(PokemonSpeciesDTO.self, from: data)
+    /*
+     sometimes pokemon species can be absent.
+     that's why need to ignore 404 status code
+     */
+    try HTTPURLResponseValidator.validate(response, ignore: [StatusCodes.notFound])
+    return try? JSONDecoder().decode(PokemonSpeciesDTO.self, from: data)
   }
 }
 
