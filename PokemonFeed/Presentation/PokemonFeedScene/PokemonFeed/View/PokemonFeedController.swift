@@ -26,6 +26,11 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     viewModel.loadData()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    view.endEditing(true)
+  }
+  
   // MARK: - Private Functions
   
   private func setupUI() {
