@@ -53,6 +53,6 @@ private struct PokemonDTO: Pokemon, Decodable {
      and will cause huge amount of requests to be sent on server,
      decided to use api provided base url to generate pokemon's image url string with it's ID.
      */
-    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png"
+    sprite = "\(AppConstants.pokemonSpriteURLString)/\(id).png"
   }
 }

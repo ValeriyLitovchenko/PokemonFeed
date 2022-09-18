@@ -111,6 +111,6 @@ private struct PokemonVarietyDTO: Decodable, PokemonVariety {
      Each `official-artwork` url requires a lot of additional actions.
      Decided to use api provided url to generate `official-artwork` url for unique variety id.
      */
-    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png"
+    sprite = "\(AppConstants.pokemonSpriteURLString)/\(id).png"
   }
 }

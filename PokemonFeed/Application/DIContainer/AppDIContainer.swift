@@ -13,7 +13,7 @@ final class AppDIContainer {
   
   private lazy var networkService: NetworkService = RestApiNetworkService(
     // swiftlint:disable force_unwrapping
-    baseURL: URL(string: "https://pokeapi.co/api/v2")!,
+    baseURL: URL(string: AppConstants.apiBaseURLString)!,
     httpClient: URLSessionHTTPClient(session: URLSession(configuration: .ephemeral)))
   
   // MARK: - DIContainers of scenes
