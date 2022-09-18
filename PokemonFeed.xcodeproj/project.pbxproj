@@ -160,7 +160,7 @@
 		64B0BFF328D50BED000A31D7 /* PokemonFeedControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFeedControllerView.swift; sourceTree = "<group>"; };
 		64B0BFF528D50C2E000A31D7 /* PokemonFeedControllerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonFeedControllerView.xib; sourceTree = "<group>"; };
 		64B0BFF728D50C74000A31D7 /* PokemonFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFeedController.swift; sourceTree = "<group>"; };
-		64FCBEAD28D35ECE00833584 /* PokemonFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64FCBEAD28D35ECE00833584 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FCBEB028D35ECE00833584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64FCBEB928D35ECF00833584 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64FCBEBC28D35ECF00833584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -548,7 +548,7 @@
 		64FCBEAE28D35ECE00833584 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				64FCBEAD28D35ECE00833584 /* PokemonFeed.app */,
+				64FCBEAD28D35ECE00833584 /* Pokemon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -741,7 +741,7 @@
 				6421E7F728D5FAC50034E91F /* Kingfisher */,
 			);
 			productName = PokemonFeed;
-			productReference = 64FCBEAD28D35ECE00833584 /* PokemonFeed.app */;
+			productReference = 64FCBEAD28D35ECE00833584 /* Pokemon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1054,7 +1054,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = valeriy.litovchenko.PokemonFeed;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pokemon;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1083,7 +1083,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = valeriy.litovchenko.PokemonFeed;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pokemon;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
