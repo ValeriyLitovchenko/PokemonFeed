@@ -8,14 +8,18 @@
 import UIKit
 
 protocol PokemonFeedSceneFlowCoordinatorDependencies {
-  func makePokemonFeedController() -> UIViewController
+  func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController
+  func makePokemonDetailsController(
+    inputModel: PokemonDetailsInputModel,
+    navigationActions: PokemonDetailsNavigationActions
+  ) -> UIViewController
 }
 
 final class PokemonFeedSceneFlowCoordinator {
   
   // MARK: - Properties
   
-  private let navigationController: UINavigationController
+  private weak var navigationController: UINavigationController?
   private let dependencies: PokemonFeedSceneFlowCoordinatorDependencies
   
   // MARK: - Constructor
@@ -31,7 +35,18 @@ final class PokemonFeedSceneFlowCoordinator {
   // MARK: - Functions
   
   func start() {
-    let viewController = dependencies.makePokemonFeedController()
-    navigationController.viewControllers = [viewController]
+    let pokemonFeedActions = PokemonFeedNavigationActions(openDetails: openPokemonDetails(with:))
+    let viewController = dependencies.makePokemonFeedController(actions: pokemonFeedActions)
+    navigationController?.viewControllers = [viewController]
+  }
+  
+  // MARK: - Private functions
+  
+  private func openPokemonDetails(with detailsInputModel: PokemonDetailsInputModel) {
+    let pokemonFeedActions = PokemonDetailsNavigationActions(openVarietyDetails: openPokemonDetails(with:))
+    let viewController = dependencies.makePokemonDetailsController(
+      inputModel: detailsInputModel,
+      navigationActions: pokemonFeedActions)
+    navigationController?.pushViewController(viewController, animated: true)
   }
 }

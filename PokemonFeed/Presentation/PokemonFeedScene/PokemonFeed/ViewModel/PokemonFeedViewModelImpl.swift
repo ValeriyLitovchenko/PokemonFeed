@@ -22,12 +22,17 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   var onStateChange: ValueCallback<PokemonFeedViewModelState>?
   
   private let getPokemonFeedUseCase: GetPokemonFeedUseCase
+  private let actions: PokemonFeedNavigationActions
   private var cancellable: Cancellable?
   
   // MARK: - Constructor
   
-  init(getPokemonFeedUseCase: GetPokemonFeedUseCase) {
+  init(
+    getPokemonFeedUseCase: GetPokemonFeedUseCase,
+    actions: PokemonFeedNavigationActions
+  ) {
     self.getPokemonFeedUseCase = getPokemonFeedUseCase
+    self.actions = actions
   }
   
   // MARK: - Functions
@@ -56,8 +61,8 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
     
     cancellable = getFeedOperation
       .handleEvents(receiveSubscription: { [weak self] _ in
-          self?.onStateChange?(.loading)
-        })
+        self?.onStateChange?(.loading)
+      })
       .sink(receiveCompletion: { [weak self] completion in
         guard let self = self else { return }
         
@@ -82,7 +87,11 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
       PokemonFeedItemCellViewModel(
         title: pokemon.name.firstUppercased,
         sprite: pokemon.sprite,
-        onAction: {})
+        onAction: { [actions] in
+          actions.openDetails(PokemonDetailsInputModel(
+            pokemonId: pokemon.id,
+            pokemonName: pokemon.name.firstUppercased))
+        })
     }
     
     return [TableSectionModel(items: items)]

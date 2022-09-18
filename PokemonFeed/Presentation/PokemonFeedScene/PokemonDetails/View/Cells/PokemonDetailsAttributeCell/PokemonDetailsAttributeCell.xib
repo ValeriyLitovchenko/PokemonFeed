@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="42" id="2VV-iX-krp" customClass="PokemonDetailsAttributeCell" customModule="Pokemon_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="213" height="42"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2VV-iX-krp" id="Iez-9Y-ghU">
+                <rect key="frame" x="0.0" y="0.0" width="213" height="42"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="998" verticalCompressionResistancePriority="998" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbO-zG-6YN">
+                        <rect key="frame" x="10" y="5" width="39.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="998" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vz4-tj-dcx">
+                        <rect key="frame" x="59.5" y="5" width="143.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Vz4-tj-dcx" firstAttribute="leading" secondItem="EbO-zG-6YN" secondAttribute="trailing" priority="998" constant="10" id="BCv-E0-kC7"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Vz4-tj-dcx" secondAttribute="bottom" priority="998" constant="5" id="EHz-ed-HZt"/>
+                    <constraint firstItem="EbO-zG-6YN" firstAttribute="top" secondItem="Iez-9Y-ghU" secondAttribute="top" priority="998" constant="5" id="EsA-d1-E45"/>
+                    <constraint firstItem="EbO-zG-6YN" firstAttribute="leading" secondItem="Iez-9Y-ghU" secondAttribute="leading" priority="998" constant="10" id="Nip-M6-NHa"/>
+                    <constraint firstItem="Vz4-tj-dcx" firstAttribute="top" secondItem="Iez-9Y-ghU" secondAttribute="top" priority="998" constant="5" id="Uex-91-Hf5"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EbO-zG-6YN" secondAttribute="bottom" priority="998" constant="5" id="eSO-sH-yjt"/>
+                    <constraint firstAttribute="trailing" secondItem="Vz4-tj-dcx" secondAttribute="trailing" priority="998" constant="10" id="zbM-FJ-qZ7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="attributeNameLabel" destination="EbO-zG-6YN" id="vaC-jw-9bv"/>
+                <outlet property="attributeValueLabel" destination="Vz4-tj-dcx" id="dsn-AS-ham"/>
+            </connections>
+            <point key="canvasLocation" x="-7.9710144927536239" y="75"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

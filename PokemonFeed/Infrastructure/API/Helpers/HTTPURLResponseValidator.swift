@@ -12,8 +12,15 @@ enum HTTPURLResponseValidator {
     case unsupportedStatusCode(Int)
   }
   
-  static func validate(_ response: HTTPURLResponse) throws {
+  static func validate(
+    _ response: HTTPURLResponse,
+    ignore ignoringCodes: [Int]? = nil
+  ) throws {
     guard response.isSuccessful else {
+      if let ignoringCodes = ignoringCodes,
+         ignoringCodes.contains(response.statusCode) {
+        return
+      }
       throw HTTPURLResponseValidator.Error.unsupportedStatusCode(response.statusCode)
     }
   }
