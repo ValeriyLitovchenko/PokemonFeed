@@ -26,9 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.rootViewController = appFlowCoordinator.navigationController
     appFlowCoordinator.start()
     
+    setupNAvigationBarAppearance()
+    
     window?.makeKeyAndVisible()
     
     return true
   }
   
+  // MARK: - Private functions
+  private func setupNAvigationBarAppearance() {
+    let appearance = UINavigationBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = .white
+    appearance.backgroundEffect = .none
+    UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    UINavigationBar.appearance().standardAppearance = appearance
+  }
 }

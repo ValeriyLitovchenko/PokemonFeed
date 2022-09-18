@@ -9,10 +9,6 @@ import UIKit
 
 final class PokemonFeedControllerView: BaseTableViewControllerView {
   
-  // MARK: - Outlets
-  
-  @IBOutlet private(set) weak var searchBar: UISearchBar!
-  
   // MARK: - Properties
   
   override var usedCells: [UITableViewCell.Type] {

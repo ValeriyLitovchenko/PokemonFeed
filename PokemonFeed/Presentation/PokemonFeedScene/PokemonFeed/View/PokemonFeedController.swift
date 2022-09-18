@@ -39,8 +39,7 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     
     title = viewModel.screenTitle
     
-    view.searchBar.delegate = self
-    view.searchBar.placeholder = viewModel.searchBarPlaceholder
+    addSearchButton()
     
     viewModel.onStateChange = { state in
       view.activityIndicator.setIsAnimating(state == .loading)
@@ -53,6 +52,39 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     }
     
     keyboardObserver.startObservation()
+  }
+  
+  private func hideSearchBar() {
+    UIView.animate(withDuration: 0.2, animations: {
+      self.navigationItem.titleView = nil
+    }, completion: { [weak self] _ in
+      self?.addSearchButton()
+    })
+  }
+  
+  private func addSearchButton() {
+    let searchButton = UIBarButtonItem(
+      barButtonSystemItem: .search,
+      target: self,
+      action: #selector(showSearchBar))
+    
+    navigationItem.setRightBarButton(searchButton, animated: true)
+  }
+  
+  @objc
+  private func showSearchBar() {
+    let searchBar = UISearchBar(frame: .zero)
+    searchBar.delegate = self
+    searchBar.placeholder = viewModel.searchBarPlaceholder
+    searchBar.alpha = .zero
+    navigationItem.setRightBarButton(nil, animated: true)
+    
+    UIView.animate(withDuration: 0.2, animations: {
+      self.navigationItem.titleView = searchBar
+      searchBar.alpha = 1.0
+    }, completion: { [weak searchBar] _ in
+      searchBar?.becomeFirstResponder()
+    })
   }
 }
 
@@ -80,8 +112,11 @@ extension PokemonFeedController: UISearchBarDelegate {
   }
   
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    if searchBar.text?.nilIfEmpty != nil {
+      viewModel.loadData()
+    }
     searchBar.text = nil
-    viewModel.loadData()
     searchBar.resignFirstResponder()
+    hideSearchBar()
   }
 }
