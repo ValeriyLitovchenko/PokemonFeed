@@ -88,9 +88,9 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         title: pokemon.name.firstUppercased,
         sprite: pokemon.sprite,
         onAction: { [actions] in
-          actions.openDetails(PokemonDetailsInput(
+          actions.openDetails(PokemonDetailsInputModel(
             pokemonId: pokemon.id,
-            pokemonName: pokemon.name))
+            pokemonName: pokemon.name.firstUppercased))
         })
     }
     

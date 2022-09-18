@@ -42,12 +42,15 @@ final class PokemonFeedSceneDIContainer {
 }
 
 extension PokemonFeedSceneDIContainer: PokemonFeedSceneFlowCoordinatorDependencies {
-  func makePokemonFeedController() -> UIViewController {
-    let viewModel = PokemonFeedViewModelImpl(getPokemonFeedUseCase: getPokemonFeedUseCase)
+  func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController {
+    let viewModel = PokemonFeedViewModelImpl(
+      getPokemonFeedUseCase: getPokemonFeedUseCase,
+      actions: actions
+    )
     return PokemonFeedController(viewModel: viewModel)
   }
   
-  func makePokemonDetailsController(with inputModel: PokemonDetailsInput) -> UIViewController {
+  func makePokemonDetailsController(inputModel: PokemonDetailsInputModel) -> UIViewController {
     let viewModel = PokemonDetailsViewModelImpl(inputModel: inputModel)
     return PokemonDetailsController(viewModel: viewModel)
   }

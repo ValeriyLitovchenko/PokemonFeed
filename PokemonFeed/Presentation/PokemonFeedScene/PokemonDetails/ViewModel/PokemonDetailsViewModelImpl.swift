@@ -19,7 +19,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   // MARK: - Constructor
   
-  init(inputModel: PokemonDetailsInput) {
+  init(inputModel: PokemonDetailsInputModel) {
     screenTitle = inputModel.pokemonName
     pokemonId = inputModel.pokemonId
   }
