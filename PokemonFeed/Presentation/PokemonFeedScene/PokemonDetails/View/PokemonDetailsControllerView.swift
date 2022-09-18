@@ -19,4 +19,6 @@ final class PokemonDetailsControllerView: BaseTableViewControllerView {
       PokemonDetailsSectionTitleCell.self
     ]
   }
+  
+  private(set) lazy var activityIndicator = addActivityIndicatorView()
 }

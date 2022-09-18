@@ -61,8 +61,8 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
     
     cancellable = getFeedOperation
       .handleEvents(receiveSubscription: { [weak self] _ in
-          self?.onStateChange?(.loading)
-        })
+        self?.onStateChange?(.loading)
+      })
       .sink(receiveCompletion: { [weak self] completion in
         guard let self = self else { return }
         

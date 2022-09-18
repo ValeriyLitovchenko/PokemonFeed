@@ -15,6 +15,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   let screenTitle: String
   
   var reloadContent: VoidCallback?
+  var onStateChange: ValueCallback<PokemonDetailsViewModelState>?
   
   private let pokemonId: String
   
@@ -42,16 +43,25 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
     cancelable = Publishers.Zip(
       getPokemonDetailsUseCase.invoke(pokemonId),
       getPokemonSpeciesUseCase.invoke(pokemonId))
-      .sink(
-        receiveCompletion: { _ in
-          
-        }, receiveValue: { [weak self] details, species in
-          guard let self = self else { return }
-          
-          let content = self.buildContent(with: details, species: species)
-          self.updateContent(with: content)
-          self.reloadContent?()
-        })
+    .handleEvents(receiveSubscription: { [weak self] _ in
+      self?.onStateChange?(.loading)
+    })
+    .sink(receiveCompletion: { [weak self] completion in
+      guard let self = self else { return }
+      
+      switch completion {
+      case .finished:
+        self.onStateChange?(.dataLoaded)
+      case .failure:
+        self.onStateChange?(.error)
+      }
+    }, receiveValue: { [weak self] details, species in
+      guard let self = self else { return }
+      
+      let content = self.buildContent(with: details, species: species)
+      self.updateContent(with: content)
+      self.reloadContent?()
+    })
   }
   
   // MARK: - Private functions

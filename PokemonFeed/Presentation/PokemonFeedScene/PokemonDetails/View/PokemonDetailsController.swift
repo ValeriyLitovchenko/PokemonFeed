@@ -34,6 +34,10 @@ final class PokemonDetailsController: BaseTableViewController<PokemonDetailsCont
     view.tableView.allowsSelection = false
     view.tableView.separatorStyle = .none
     
+    viewModel.onStateChange = { state in
+      view.activityIndicator.setIsAnimating(state == .loading)
+    }
+    
     viewModel.reloadContent = {
       DispatchQueue.main.async(execute: view.tableView.reloadData)
     }
