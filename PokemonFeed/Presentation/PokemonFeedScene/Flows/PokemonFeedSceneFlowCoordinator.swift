@@ -9,7 +9,10 @@ import UIKit
 
 protocol PokemonFeedSceneFlowCoordinatorDependencies {
   func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController
-  func makePokemonDetailsController(inputModel: PokemonDetailsInputModel) -> UIViewController
+  func makePokemonDetailsController(
+    inputModel: PokemonDetailsInputModel,
+    navigationActions: PokemonDetailsNavigationActions
+  ) -> UIViewController
 }
 
 final class PokemonFeedSceneFlowCoordinator {
@@ -40,7 +43,10 @@ final class PokemonFeedSceneFlowCoordinator {
   // MARK: - Private functions
   
   private func openPokemonDetails(with detailsInputModel: PokemonDetailsInputModel) {
-    let viewController = dependencies.makePokemonDetailsController(inputModel: detailsInputModel)
+    let pokemonFeedActions = PokemonDetailsNavigationActions(openVarietyDetails: openPokemonDetails(with:))
+    let viewController = dependencies.makePokemonDetailsController(
+      inputModel: detailsInputModel,
+      navigationActions: pokemonFeedActions)
     navigationController?.pushViewController(viewController, animated: true)
   }
 }

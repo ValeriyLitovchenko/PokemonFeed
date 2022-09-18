@@ -30,6 +30,7 @@ private struct PokemonSpeciesDTO: PokemonSpecies, Decodable {
     case generation
     case growthRate = "growth_rate"
     case habitat
+    case varieties
   }
   
   enum GenerationCodingKeys: String, CodingKey {
@@ -49,6 +50,7 @@ private struct PokemonSpeciesDTO: PokemonSpecies, Decodable {
   let generation: String
   let growthRate: String
   let habitat: String
+  let varieties: [PokemonVariety]
   
   // MARK: - Constructor
   
@@ -69,5 +71,46 @@ private struct PokemonSpeciesDTO: PokemonSpecies, Decodable {
       keyedBy: HabitatCodingKeys.self,
       forKey: CodingKeys.habitat)
     habitat = try habitatContainer.decode(String.self, forKey: .name)
+    
+    varieties = try container.decode([PokemonVarietyDTO].self, forKey: .varieties)
+  }
+}
+
+private struct PokemonVarietyDTO: Decodable, PokemonVariety {
+  
+  enum CodingKeys: String, CodingKey {
+    case isDefault = "is_default"
+    case pokemon
+  }
+  
+  enum PokemonCodingKeys: String, CodingKey {
+    case name
+    case url
+  }
+  
+  // MARK: - Properties
+  
+  let id: String
+  let name: String
+  let sprite: String
+  
+  // MARK: - Constructor
+  
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    
+    let pokemonContainer = try container.nestedContainer(keyedBy: PokemonCodingKeys.self, forKey: .pokemon)
+    
+    name = try pokemonContainer.decode(String.self, forKey: .name)
+    
+    id = (try pokemonContainer.decode(String.self, forKey: .url))
+      .dropLast()
+      .components(separatedBy: "/")
+      .last ?? ""
+    /*
+     Each `official-artwork` url requires a lot of additional actions.
+     Decided to use api provided url to generate `official-artwork` url for unique variety id.
+     */
+    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png"
   }
 }

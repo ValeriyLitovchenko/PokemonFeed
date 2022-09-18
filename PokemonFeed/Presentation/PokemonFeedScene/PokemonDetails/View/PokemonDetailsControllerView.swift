@@ -13,6 +13,7 @@ final class PokemonDetailsControllerView: BaseTableViewControllerView {
   
   override var usedCells: [UITableViewCell.Type] {
     [
+      PokemonVarietyCell.self,
       PokemonDetailsImageCell.self,
       PokemonDetailsAttributeCell.self,
       PokemonDetailsAbilitiesCell.self,

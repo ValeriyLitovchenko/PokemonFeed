@@ -11,4 +11,5 @@ protocol PokemonSpecies {
   var generation: String { get }
   var growthRate: String { get }
   var habitat: String { get }
+  var varieties: [PokemonVariety] { get }
 }

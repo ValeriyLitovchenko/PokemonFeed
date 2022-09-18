@@ -21,6 +21,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private let getPokemonDetailsUseCase: GetPokemonDetailsUseCase
   private let getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase
+  private let navigationActions: PokemonDetailsNavigationActions
   
   private var cancelable: Cancellable?
   
@@ -29,12 +30,14 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   init(
     inputModel: PokemonDetailsInputModel,
     getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
-    getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase
+    getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase,
+    navigationActions: PokemonDetailsNavigationActions
   ) {
     screenTitle = inputModel.pokemonName
     pokemonId = inputModel.pokemonId
     self.getPokemonDetailsUseCase = getPokemonDetailsUseCase
     self.getPokemonSpeciesUseCase = getPokemonSpeciesUseCase
+    self.navigationActions = navigationActions
   }
   
   // MARK: - Functions
@@ -74,7 +77,8 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
       buildImageSection(details),
       buildAttributesSection(details),
       buildAbilitiesSection(details),
-      buildSpeciesSection(species)
+      buildSpeciesSection(species),
+      buildVarietiesSection(species?.varieties)
     ].compactMap { $0 }
   }
   
@@ -136,6 +140,35 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
         name: NSLocalizedString("Habitat:", comment: ""),
         value: species.habitat)
     ]
+    
+    return TableSectionModel(items: items)
+  }
+  
+  private func buildVarietiesSection(_ varieties: [PokemonVariety]?) -> TableSectionModel? {
+    guard let varieties = varieties?.filter({ $0.id != pokemonId }),
+            !varieties.isEmpty else {
+      return nil
+    }
+
+    var items: [BaseTableCellModel] = [
+      PokemonDetailsSectionTitleCellViewModel(
+        title: NSLocalizedString("Varieties", comment: "")
+      )
+    ]
+    
+    varieties.forEach { variety in
+      items.append(
+        PokemonVarietyCellModel(
+          title: variety.name,
+          sprite: variety.sprite,
+          onAction: { [weak self] in
+            self?.navigationActions.openVarietyDetails(
+              PokemonDetailsInputModel(
+                pokemonId: variety.id,
+                pokemonName: variety.name.firstUppercased))
+          })
+      )
+    }
     
     return TableSectionModel(items: items)
   }

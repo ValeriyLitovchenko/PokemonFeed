@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="115" id="LKV-XC-Lmd" customClass="PokemonVarietyCell" customModule="PokemonFeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="424" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LKV-XC-Lmd" id="caC-0v-qDR">
+                <rect key="frame" x="0.0" y="0.0" width="424" height="115"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiX-gR-S94">
+                        <rect key="frame" x="15" y="10" width="394" height="95"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Lx-VK-CfU">
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5Lx-VK-CfU" secondAttribute="height" priority="998" id="5Ei-g9-TdF"/>
+                                    <constraint firstAttribute="height" priority="998" constant="80" id="pI2-Ei-j0b"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="20" verticalCompressionResistancePriority="998" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amD-A3-YrK">
+                                <rect key="frame" x="90" y="0.0" width="304" height="95"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5Lx-VK-CfU" firstAttribute="top" secondItem="OiX-gR-S94" secondAttribute="top" id="25h-XV-UjW"/>
+                            <constraint firstItem="amD-A3-YrK" firstAttribute="top" secondItem="OiX-gR-S94" secondAttribute="top" id="3ys-Iq-fgB"/>
+                            <constraint firstAttribute="bottom" secondItem="amD-A3-YrK" secondAttribute="bottom" id="8Hr-uS-bSs"/>
+                            <constraint firstAttribute="trailing" secondItem="amD-A3-YrK" secondAttribute="trailing" id="8gc-0V-hic"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5Lx-VK-CfU" secondAttribute="bottom" priority="998" id="Ont-Zl-CcQ"/>
+                            <constraint firstItem="amD-A3-YrK" firstAttribute="leading" secondItem="5Lx-VK-CfU" secondAttribute="trailing" priority="998" constant="10" id="fqO-FE-LCx"/>
+                            <constraint firstItem="5Lx-VK-CfU" firstAttribute="leading" secondItem="OiX-gR-S94" secondAttribute="leading" id="u2f-pf-e5T"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OiX-gR-S94" firstAttribute="top" secondItem="caC-0v-qDR" secondAttribute="top" priority="998" constant="10" id="7An-9a-X0Y"/>
+                    <constraint firstAttribute="bottom" secondItem="OiX-gR-S94" secondAttribute="bottom" priority="998" constant="10" id="ZJz-90-INo"/>
+                    <constraint firstAttribute="trailing" secondItem="OiX-gR-S94" secondAttribute="trailing" priority="998" constant="15" id="bif-AG-6Is"/>
+                    <constraint firstItem="OiX-gR-S94" firstAttribute="leading" secondItem="caC-0v-qDR" secondAttribute="leading" priority="998" constant="15" id="c0P-kw-Zsb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="varietySpriteView" destination="5Lx-VK-CfU" id="MPb-19-6Ne"/>
+                <outlet property="varietyTitleLabel" destination="amD-A3-YrK" id="zgT-tn-TO8"/>
+            </connections>
+            <point key="canvasLocation" x="144.92753623188406" y="124.21875"/>
+        </tableViewCell>
+    </objects>
+</document>
