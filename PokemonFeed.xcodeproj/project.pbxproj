@@ -80,6 +80,7 @@
 		64F8CAF528D840EE005278E2 /* MessageAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8CAF428D840EE005278E2 /* MessageAlertModel.swift */; };
 		64F8CAF728D8421B005278E2 /* MessageAlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8CAF628D8421A005278E2 /* MessageAlertFactory.swift */; };
 		64F8CAF928D8467D005278E2 /* FetchingDataErrorMessageAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8CAF828D8467D005278E2 /* FetchingDataErrorMessageAlertModel.swift */; };
+		64F8CAFB28D880DE005278E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 64F8CAFA28D880DE005278E2 /* README.md */; };
 		64FCBEB128D35ECE00833584 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FCBEB028D35ECE00833584 /* AppDelegate.swift */; };
 		64FCBEBA28D35ECF00833584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64FCBEB928D35ECF00833584 /* Assets.xcassets */; };
 		64FCBEBD28D35ECF00833584 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64FCBEBB28D35ECF00833584 /* LaunchScreen.storyboard */; };
@@ -176,6 +177,7 @@
 		64F8CAF428D840EE005278E2 /* MessageAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAlertModel.swift; sourceTree = "<group>"; };
 		64F8CAF628D8421A005278E2 /* MessageAlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAlertFactory.swift; sourceTree = "<group>"; };
 		64F8CAF828D8467D005278E2 /* FetchingDataErrorMessageAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingDataErrorMessageAlertModel.swift; sourceTree = "<group>"; };
+		64F8CAFA28D880DE005278E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		64FCBEAD28D35ECE00833584 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FCBEB028D35ECE00833584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64FCBEB928D35ECF00833584 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 		64FCBEA428D35ECD00833584 = {
 			isa = PBXGroup;
 			children = (
+				64F8CAFA28D880DE005278E2 /* README.md */,
 				64FCBEAF28D35ECE00833584 /* PokemonFeed */,
 				64FCBEAE28D35ECE00833584 /* Products */,
 			);
@@ -845,6 +848,7 @@
 				6421E87128D8392D0034E91F /* PokemonFeedNoResultsCell.xib in Resources */,
 				6413EDBE28D514640065D238 /* PokemonFeedItemCell.xib in Resources */,
 				6421E86B28D836CD0034E91F /* Colors.xcassets in Resources */,
+				64F8CAFB28D880DE005278E2 /* README.md in Resources */,
 				64B0BFF628D50C2E000A31D7 /* PokemonFeedControllerView.xib in Resources */,
 				6421E84928D750A30034E91F /* PokemonDetailsAttributeCell.xib in Resources */,
 				64FCBEBD28D35ECF00833584 /* LaunchScreen.storyboard in Resources */,
