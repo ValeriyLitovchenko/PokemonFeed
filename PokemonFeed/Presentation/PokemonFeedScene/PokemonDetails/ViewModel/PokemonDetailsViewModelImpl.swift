@@ -66,11 +66,8 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
         
       case .failure:
         self.onStateChange?(.error)
-        if self.canShowLoadDataErrorMessage {
-          self.loadDataOnErrorRetriesCount += 1
-          DispatchQueue.main.async { [weak self] in
-            self?.showLoadDataErrorMessage()
-          }
+        DispatchQueue.main.async { [weak self] in
+          self?.onLoadDataOperationFailure()
         }
       }
     }, receiveValue: { [weak self] details, species in
@@ -84,15 +81,21 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   // MARK: - Private functions
   
-  private func showLoadDataErrorMessage() {
-    let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
-      onRetry: { [weak self] in
-        self?.loadData()
-      }, onCancel: { [weak self] in
-        self?.navigationActions.close()
-      })
-    
-    navigationActions.showMessage(messageModel)
+  private func onLoadDataOperationFailure() {
+      if canShowLoadDataErrorMessage {
+        loadDataOnErrorRetriesCount += 1
+        
+        let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+          onRetry: { [weak self] in
+            self?.loadData()
+          }, onCancel: { [weak self] in
+            self?.navigationActions.close()
+          })
+        
+        navigationActions.showMessage(messageModel)
+      } else {
+        navigationActions.close()
+    }
   }
   
   private func buildContent(

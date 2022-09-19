@@ -78,11 +78,8 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
           
         case .failure:
           self.onStateChange?(.error)
-          if self.canShowLoadFeedErrorMessage {
-            self.loadFeedOnErrorRetriesCount += 1
-            DispatchQueue.main.async { [weak self] in
-              self?.showLoadFeedErrorMessage(with: query)
-            }
+          DispatchQueue.main.async { [weak self] in
+            self?.onLoadFeedOperationFailure(with: query)
           }
         }
       }, receiveValue: { [weak self] pokemons in
@@ -95,13 +92,16 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   
   // MARK: - Private functions
   
-  private func showLoadFeedErrorMessage(with retryQuery: String?) {
-    let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
-      onRetry: { [weak self] in
-        self?.performSearch(with: retryQuery)
-      })
-    
-    navigationActions.showMessage(messageModel)
+  private func onLoadFeedOperationFailure(with retryQuery: String?) {
+    if canShowLoadFeedErrorMessage {
+      loadFeedOnErrorRetriesCount += 1
+      let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+        onRetry: { [weak self] in
+          self?.performSearch(with: retryQuery)
+        })
+      
+      navigationActions.showMessage(messageModel)
+    }
   }
   
   private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
