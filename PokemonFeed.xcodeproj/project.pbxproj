@@ -154,6 +154,9 @@
 		6421E85F28D76B750034E91F /* PokemonVarietyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonVarietyCell.xib; sourceTree = "<group>"; };
 		6421E86228D76E360034E91F /* PokemonDetailsNavigationActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsNavigationActions.swift; sourceTree = "<group>"; };
 		6421E86428D776FA0034E91F /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		6421E86628D8342E0034E91F /* UITableViewCell+SelectionColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SelectionColor.swift"; sourceTree = "<group>"; };
+		6421E86828D835880034E91F /* DefinedColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinedColors.swift; sourceTree = "<group>"; };
+		6421E86A28D836CD0034E91F /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		64B0BFE728D505EB000A31D7 /* PokemonFeedViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFeedViewModelImpl.swift; sourceTree = "<group>"; };
 		64B0BFEA28D506CD000A31D7 /* GetPokemonFeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonFeedUseCase.swift; sourceTree = "<group>"; };
 		64B0BFEE28D5071D000A31D7 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				6421E7FE28D5FCEA0034E91F /* DefinedImages.swift */,
+				6421E86828D835880034E91F /* DefinedColors.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -584,6 +588,7 @@
 			isa = PBXGroup;
 			children = (
 				64FCBEB928D35ECF00833584 /* Assets.xcassets */,
+				6421E86A28D836CD0034E91F /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -787,6 +792,7 @@
 			files = (
 				6421E82928D65D990034E91F /* PokemonDetailsControllerView.xib in Resources */,
 				6413EDBE28D514640065D238 /* PokemonFeedItemCell.xib in Resources */,
+				6421E86B28D836CD0034E91F /* Colors.xcassets in Resources */,
 				64B0BFF628D50C2E000A31D7 /* PokemonFeedControllerView.xib in Resources */,
 				6421E84928D750A30034E91F /* PokemonDetailsAttributeCell.xib in Resources */,
 				64FCBEBD28D35ECF00833584 /* LaunchScreen.storyboard in Resources */,
@@ -898,6 +904,7 @@
 				6421E82728D65D6B0034E91F /* PokemonDetailsControllerView.swift in Sources */,
 				6421E82428D65CA70034E91F /* PokemonDetailsInputModel.swift in Sources */,
 				6421E7DE28D5B5A80034E91F /* PokemonFeedRepository.swift in Sources */,
+				6421E86928D835880034E91F /* DefinedColors.swift in Sources */,
 				6421E80A28D616BD0034E91F /* HTTPURLResponseValidator.swift in Sources */,
 				64FCBEE128D37FB600833584 /* BaseTableViewReusableViews.swift in Sources */,
 				64B0BFF828D50C74000A31D7 /* PokemonFeedController.swift in Sources */,
