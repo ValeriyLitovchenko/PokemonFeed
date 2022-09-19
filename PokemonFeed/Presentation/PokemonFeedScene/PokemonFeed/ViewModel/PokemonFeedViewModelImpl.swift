@@ -11,7 +11,7 @@ import Combine
 final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewModel {
   private enum Constants {
     static let searchOperationDelay = RunLoop.SchedulerTimeType.Stride(0.18)
-    static let maxLoadFeedErrorMessageRetriesCount = 2
+    static let maxLoadFeedOnErrorRetriesCount = 2
   }
   
   // MARK: - Properties
@@ -23,21 +23,21 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   var onStateChange: ValueCallback<PokemonFeedViewModelState>?
   
   private let getPokemonFeedUseCase: GetPokemonFeedUseCase
-  private let actions: PokemonFeedNavigationActions
+  private let navigationActions: PokemonFeedNavigationActions
   private var cancellable: Cancellable?
   
-  private var loadFeedErrorMessageRetriesCount = Int.zero
+  private var loadFeedOnErrorRetriesCount = Int.zero
   private var canShowLoadFeedErrorMessage: Bool {
-    loadFeedErrorMessageRetriesCount < PokemonFeedViewModelImpl.Constants.maxLoadFeedErrorMessageRetriesCount
+    loadFeedOnErrorRetriesCount < PokemonFeedViewModelImpl.Constants.maxLoadFeedOnErrorRetriesCount
   }
   // MARK: - Constructor
   
   init(
     getPokemonFeedUseCase: GetPokemonFeedUseCase,
-    actions: PokemonFeedNavigationActions
+    navigationActions: PokemonFeedNavigationActions
   ) {
     self.getPokemonFeedUseCase = getPokemonFeedUseCase
-    self.actions = actions
+    self.navigationActions = navigationActions
   }
   
   // MARK: - Functions
@@ -74,12 +74,12 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         switch completion {
         case .finished:
           self.onStateChange?(.dataLoaded)
-          self.loadFeedErrorMessageRetriesCount = .zero
+          self.loadFeedOnErrorRetriesCount = .zero
           
         case .failure:
           self.onStateChange?(.error)
           if self.canShowLoadFeedErrorMessage {
-            self.loadFeedErrorMessageRetriesCount += 1
+            self.loadFeedOnErrorRetriesCount += 1
             DispatchQueue.main.async { [weak self] in
               self?.showLoadFeedErrorMessage(with: query)
             }
@@ -101,7 +101,7 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         self?.performSearch(with: retryQuery)
       })
     
-    actions.showMessage(messageModel)
+    navigationActions.showMessage(messageModel)
   }
   
   private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
@@ -113,8 +113,8 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
        PokemonFeedItemCellModel(
          title: pokemon.name.firstUppercased,
          sprite: pokemon.sprite,
-         onAction: { [actions] in
-           actions.openDetails(PokemonDetailsInputModel(
+         onAction: { [navigationActions] in
+           navigationActions.openDetails(PokemonDetailsInputModel(
              pokemonId: pokemon.id,
              pokemonName: pokemon.name.firstUppercased))
          })

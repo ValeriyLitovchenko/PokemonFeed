@@ -40,11 +40,12 @@ struct FetchingDataErrorMessageAlertModel: MessageAlertModel {
       MessageAlertAction(
         type: .confirming,
         title: NSLocalizedString("Cancel", comment: ""),
-        handler: onRetry)
+        handler: onCancel)
     ]
     
     return FetchingDataErrorMessageAlertModel(
       title: NSLocalizedString("Operation Error", comment: ""),
+      // swiftlint:disable line_length
       message: NSLocalizedString("An error occurred while fetching data from server. Would you like to retry?", comment: ""),
       actions: actions)
   }

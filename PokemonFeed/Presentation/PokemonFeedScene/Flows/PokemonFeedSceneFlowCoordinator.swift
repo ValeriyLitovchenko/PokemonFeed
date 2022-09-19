@@ -46,7 +46,13 @@ final class PokemonFeedSceneFlowCoordinator {
   // MARK: - Private functions
   
   private func openPokemonDetails(with detailsInputModel: PokemonDetailsInputModel) {
-    let pokemonFeedActions = PokemonDetailsNavigationActions(openVarietyDetails: openPokemonDetails(with:))
+    let pokemonFeedActions = PokemonDetailsNavigationActions(
+      openVarietyDetails: openPokemonDetails(with:),
+      showMessage: showMessage(with:),
+      close: { [weak navigationController] in
+        navigationController?.popViewController(animated: true)
+      })
+    
     let viewController = dependencies.makePokemonDetailsController(
       inputModel: detailsInputModel,
       navigationActions: pokemonFeedActions)
