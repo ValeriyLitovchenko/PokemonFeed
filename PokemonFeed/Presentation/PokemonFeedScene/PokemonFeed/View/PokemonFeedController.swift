@@ -9,7 +9,7 @@ import UIKit
 
 final class PokemonFeedController: BaseTableViewController<PokemonFeedControllerView, PokemonFeedViewModel> {
   
-  // MARK: - Property
+  // MARK: - Properties
   
   override var content: [TableSectionModel] {
     viewModel.content

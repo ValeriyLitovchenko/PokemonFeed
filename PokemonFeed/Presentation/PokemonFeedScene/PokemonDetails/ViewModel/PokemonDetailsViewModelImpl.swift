@@ -10,7 +10,7 @@ import Combine
 
 final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsViewModel {
   
-  // MARK: - Property
+  // MARK: - Properties
   
   let screenTitle: String
   
