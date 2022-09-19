@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,7 +13,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="115" id="oe6-Fa-asx" customClass="PokemonFeedItemCell" customModule="Pokemon" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="424" height="115"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oe6-Fa-asx" id="c7f-tm-aHR">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oe6-Fa-asx" id="c7f-tm-aHR">
                 <rect key="frame" x="0.0" y="0.0" width="395.5" height="115"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -44,14 +45,26 @@
                             <constraint firstItem="JoL-lM-6E7" firstAttribute="top" secondItem="2w4-8A-GhM" secondAttribute="top" id="jMl-Va-su1"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1T-Yr-4vx" userLabel="Separator">
+                        <rect key="frame" x="15" y="114" width="394" height="1"/>
+                        <color key="backgroundColor" name="lightCellSeparatorColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ocz-CB-Aag"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="2w4-8A-GhM" secondAttribute="bottom" priority="998" constant="10" id="Dlq-jt-LpC"/>
+                    <constraint firstItem="W1T-Yr-4vx" firstAttribute="leading" secondItem="c7f-tm-aHR" secondAttribute="leading" constant="15" id="JVI-Rw-SNl"/>
                     <constraint firstAttribute="trailing" secondItem="2w4-8A-GhM" secondAttribute="trailing" priority="998" constant="15" id="giB-au-ysu"/>
                     <constraint firstItem="2w4-8A-GhM" firstAttribute="leading" secondItem="c7f-tm-aHR" secondAttribute="leading" priority="998" constant="15" id="oqa-s6-upt"/>
+                    <constraint firstAttribute="bottom" secondItem="W1T-Yr-4vx" secondAttribute="bottom" id="qA1-22-tMf"/>
                     <constraint firstItem="2w4-8A-GhM" firstAttribute="top" secondItem="c7f-tm-aHR" secondAttribute="top" priority="998" constant="10" id="xwd-Gm-Gmx"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="W1T-Yr-4vx" secondAttribute="trailing" constant="15" id="cOC-YU-rMD"/>
+            </constraints>
             <connections>
                 <outlet property="pokemonSpriteView" destination="k3S-Hs-xby" id="5H3-PL-hhn"/>
                 <outlet property="pokemonTitleLabel" destination="JoL-lM-6E7" id="j7I-dm-r2f"/>
@@ -59,4 +72,9 @@
             <point key="canvasLocation" x="144.92753623188406" y="124.21875"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="lightCellSeparatorColor">
+            <color red="0.94999999999999996" green="0.94999999999999996" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

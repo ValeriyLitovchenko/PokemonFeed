@@ -45,6 +45,8 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
       view.activityIndicator.setIsAnimating(state == .loading)
     }
     
+    view.tableView.separatorStyle = .none
+    
     viewModel.reloadContent = {
       DispatchQueue.main.async {
         view.tableView.reloadData()

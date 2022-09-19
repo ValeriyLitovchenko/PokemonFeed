@@ -83,15 +83,20 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   // MARK: - Private functions
   
   private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
-    let items = pokemons.map { pokemon in
-      PokemonFeedItemCellViewModel(
-        title: pokemon.name.firstUppercased,
-        sprite: pokemon.sprite,
-        onAction: { [actions] in
-          actions.openDetails(PokemonDetailsInputModel(
-            pokemonId: pokemon.id,
-            pokemonName: pokemon.name.firstUppercased))
-        })
+    let items: [BaseTableCellModel]
+    if pokemons.isEmpty {
+      items = [PokemonFeedNoResultsCellModel()]
+    } else {
+      items = pokemons.map { pokemon in
+       PokemonFeedItemCellViewModel(
+         title: pokemon.name.firstUppercased,
+         sprite: pokemon.sprite,
+         onAction: { [actions] in
+           actions.openDetails(PokemonDetailsInputModel(
+             pokemonId: pokemon.id,
+             pokemonName: pokemon.name.firstUppercased))
+         })
+     }
     }
     
     return [TableSectionModel(items: items)]
