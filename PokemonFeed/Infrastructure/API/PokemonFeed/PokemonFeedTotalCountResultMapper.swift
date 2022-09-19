@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provide functionality for response + data validation while Pokemons total count decoding from server response
 enum PokemonFeedTotalCountResultMapper {
   private enum Error: Swift.Error {
     case unsupportedStatusCode(Int)

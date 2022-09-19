@@ -7,10 +7,16 @@
 
 import Foundation
 
+/// Server Api endpoint for requesting pokemons data
 enum PokemonFeedApiEndpoint {
+  
+  /// Endpoint for requesting pokemons data from server
   case getPokemonFeed(limit: Int)
+  
+  /// Endpoint for requesting total pokemons count from server
   case getTotalCount
   
+  /// Instantiates URLRequest with baseURL for one of the PokemonFeedApiEndpoint cases
   func urlRequest(baseURL: URL) -> URLRequest {
     var components = URLComponents()
     components.scheme = baseURL.scheme

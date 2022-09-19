@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// An object that operates with main application flow transitions between scenes
 final class AppFlowCoordinator {
   
   // MARK: - Properties

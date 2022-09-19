@@ -7,8 +7,10 @@
 
 import UIKit
 
+/// Container for PokemonFeedScene dependencies
 final class PokemonFeedSceneDIContainer {
   
+  /// PokemonFeedScene dependencies
   private struct Dependencies {
     let networkService: NetworkService
   }
@@ -25,6 +27,7 @@ final class PokemonFeedSceneDIContainer {
   
   // MARK: - UseCases
   
+  /// Instantiates `GetPokemonFeedUseCase` for fetching pokemons
   private var getPokemonFeedUseCase: GetPokemonFeedUseCase {
     GetPokemonFeedUseCaseImpl(
       pokemonFeedRepository: PokemonFeedRepositoryImpl(
@@ -32,16 +35,19 @@ final class PokemonFeedSceneDIContainer {
         pokemonFeedStorage: InMemoryPokemonFeedStorage()))
   }
   
+  /// Instantiates `GetPokemonDetailsUseCase` for fetching pokemon details
   private var getPokemonDetailsUseCase: GetPokemonDetailsUseCase {
     GetPokemonDetailsUseCaseImpl(networkService: dependencies.networkService)
   }
   
+  /// Instantiates `GetPokemonDetailsUseCase` for fetching pokemon species
   private var getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase {
     GetPokemonSpeciesUseCaseImpl(networkService: dependencies.networkService)
   }
   
   // MARK: - Flow Coordinators
   
+  /// Instantiates `PokemonFeedSceneFlowCoordinator` with `navigationController`
   func makePokemonFeedSceneFlowCoordinator(navigationController: UINavigationController) -> PokemonFeedSceneFlowCoordinator {
     PokemonFeedSceneFlowCoordinator(
       navigationController: navigationController,

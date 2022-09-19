@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provide functionality for response + data validation while and PokemonDetails decoding from server response
 enum PokemonDetailsResultMapper {
   static func map(_ data: Data, from response: HTTPURLResponse) throws -> PokemonDetails {
     try HTTPURLResponseValidator.validate(response)
@@ -14,6 +15,7 @@ enum PokemonDetailsResultMapper {
   }
 }
 
+/// Decodable pokemon details data transfer object
 private struct PokemonDetailsDTO: PokemonDetails, Decodable {
   
   // MARK: - CodingKeys
@@ -49,6 +51,10 @@ private struct PokemonDetailsDTO: PokemonDetails, Decodable {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
+    /*
+     Response object has nested structure and to receive `front_default` artwork needs to pass
+     Pokemon->sprites->official-artwork->front_default
+    */
     let artworkContainer = try container.nestedContainer(keyedBy: SpritesKeys.self, forKey: .sprites)
       .nestedContainer(keyedBy: OtherSpritesKeys.self, forKey: .other)
       .nestedContainer(keyedBy: ArtworkKeys.self, forKey: .artwork)
@@ -58,12 +64,13 @@ private struct PokemonDetailsDTO: PokemonDetails, Decodable {
     height = try container.decode(Int.self, forKey: .height)
     weight = try container.decode(Int.self, forKey: .weight)
     
-    let abilities = try container.decode([PokemonAbility].self, forKey: .abilities)
+    let abilities = try container.decode([PokemonAbilityDTO].self, forKey: .abilities)
     self.abilities = abilities.map(\.name)
   }
 }
 
-private struct PokemonAbility: Decodable {
+/// Decodable pokemon ability data transfer object
+private struct PokemonAbilityDTO: Decodable {
   
   // MARK: - CodingKeys
   

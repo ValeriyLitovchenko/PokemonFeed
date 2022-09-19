@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Customizable ActivityIndicatorView
 final class ActivityIndicatorView: UIView {
   
   struct Style {

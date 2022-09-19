@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Base class for TableViewController view
 class BaseTableViewControllerView: BaseView {
   
   // MARK: - Outlets

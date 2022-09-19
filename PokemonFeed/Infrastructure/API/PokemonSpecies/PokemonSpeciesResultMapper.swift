@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Provide functionality for response + data validation while optional PokemonSpecies decoding from server response
 enum PokemonSpeciesResultMapper {
   private enum StatusCodes {
     static let notFound = 404

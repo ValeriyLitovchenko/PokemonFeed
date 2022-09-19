@@ -10,6 +10,7 @@ import Foundation
 extension HTTPURLResponse {
   private static var OK_200: Int { 200 }
   
+  /// Checks that response statusCode is 200
   var isSuccessful: Bool {
     statusCode == HTTPURLResponse.OK_200
   }

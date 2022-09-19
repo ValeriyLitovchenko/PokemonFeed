@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Interface for instantiating nib file for UI elements
 protocol NibInstantiable: NSObjectProtocol {
   static var nib: UINib { get }
 }

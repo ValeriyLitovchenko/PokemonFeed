@@ -11,6 +11,7 @@ import Combine
 extension HTTPClient {
   typealias Publisher = AnyPublisher<(Data, HTTPURLResponse), Error>
   
+  /// Performs request asynchronously with propagating result through HTTPClient.Publisher
   func getPublisher(urlRequest: URLRequest) -> Publisher {
     var task: HTTPClientTask?
     

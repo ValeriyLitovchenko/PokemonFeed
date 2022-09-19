@@ -7,10 +7,12 @@
 
 import Foundation
 
+/// Contains application dependencies
 final class AppDIContainer {
   
   // MARK: - Properties
   
+  /// Service for RestApi operations
   private lazy var networkService: NetworkService = RestApiNetworkService(
     // swiftlint:disable force_unwrapping
     baseURL: URL(string: AppConstants.apiBaseURLString)!,
@@ -18,6 +20,7 @@ final class AppDIContainer {
   
   // MARK: - DIContainers of scenes
   
+  /// Instantiates  container for PokemonFeedScene dependencies
   var pokemonFeedSceneDependencies: PokemonFeedSceneDIContainer {
     PokemonFeedSceneDIContainer(networkService: networkService)
   }

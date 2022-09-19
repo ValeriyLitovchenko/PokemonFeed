@@ -9,6 +9,7 @@ import UIKit
 
 extension UIView {
   
+  /// Adds subview with pinning edges to self as superview
   func addPinnedSubview(
     _ subview: UIView,
     side: [NSLayoutConstraint.Attribute] = [.top, .bottom, .right, .left]) {
@@ -18,6 +19,7 @@ extension UIView {
     subview.pinEdges(to: self, side: side)
   }
   
+  /// Pins subview edges to self as superview
   func pinEdges(
     to other: UIView,
     side: [NSLayoutConstraint.Attribute] = [.top, .bottom, .right, .left]) {

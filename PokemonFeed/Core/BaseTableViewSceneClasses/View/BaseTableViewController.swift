@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Base class for TableView controller
 class BaseTableViewController<View: BaseTableViewControllerView, ViewModel>:
   BaseViewController<View, ViewModel>, UITableViewDelegate, UITableViewDataSource {
   

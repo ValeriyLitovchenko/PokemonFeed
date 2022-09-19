@@ -7,9 +7,11 @@
 
 import Foundation
 
+/// Server Api endpoint for requesting pokemon species data
 enum PokemonSpeciesApiEndpoint {
   case getPokemonSpecies(id: String)
   
+  /// Instantiates URLRequest with baseURL for one of the PokemonSpeciesApiEndpoint cases
   func urlRequest(baseURL: URL) -> URLRequest {
     switch self {
     case let .getPokemonSpecies(id):
