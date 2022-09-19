@@ -84,7 +84,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildImageSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsImageCellViewModel(sprite: details.sprite)
+      PokemonDetailsImageCellModel(sprite: details.sprite)
     ]
     
     return TableSectionModel(items: items)
@@ -92,14 +92,14 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildAttributesSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Attributes", comment: "")),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Height", comment: "") + ":",
         value: "\(details.height)"),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Weight", comment: "") + ":",
         value: "\(details.weight)")
     ]
@@ -109,7 +109,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildAbilitiesSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Abilities", comment: "")),
       
       PokemonDetailsAbilitiesCellModel(
@@ -125,18 +125,18 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
     }
     
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Species", comment: "")),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Generation:", comment: ""),
         value: species.generation),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Growth Rate:", comment: ""),
         value: species.growthRate),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Habitat:", comment: ""),
         value: species.habitat)
     ]
@@ -151,7 +151,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
     }
 
     var items: [BaseTableCellModel] = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Varieties", comment: "")
       )
     ]

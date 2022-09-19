@@ -88,7 +88,7 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
       items = [PokemonFeedNoResultsCellModel()]
     } else {
       items = pokemons.map { pokemon in
-       PokemonFeedItemCellViewModel(
+       PokemonFeedItemCellModel(
          title: pokemon.name.firstUppercased,
          sprite: pokemon.sprite,
          onAction: { [actions] in

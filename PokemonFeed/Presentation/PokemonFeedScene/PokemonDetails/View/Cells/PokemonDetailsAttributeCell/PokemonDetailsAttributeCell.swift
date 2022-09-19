@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PokemonDetailsAttributeCellViewModel: BaseTableCellModel {
+final class PokemonDetailsAttributeCellModel: BaseTableCellModel {
   
   // MARK: - Properties
   
@@ -39,7 +39,7 @@ final class PokemonDetailsAttributeCell: BaseTableCell {
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {}
   
   override func configure(with model: BaseTableCellModel) {
-    guard let model = model as? PokemonDetailsAttributeCellViewModel else {
+    guard let model = model as? PokemonDetailsAttributeCellModel else {
       fatalError("Wrong item provided to cell")
     }
     
