@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PokemonFeedSceneFlowCoordinatorDependencies {
+protocol PokemonFeedSceneFlowCoordinatorDependencies: MessageAlertFactory {
   func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController
   func makePokemonDetailsController(
     inputModel: PokemonDetailsInputModel,
@@ -35,7 +35,10 @@ final class PokemonFeedSceneFlowCoordinator {
   // MARK: - Functions
   
   func start() {
-    let pokemonFeedActions = PokemonFeedNavigationActions(openDetails: openPokemonDetails(with:))
+    let pokemonFeedActions = PokemonFeedNavigationActions(
+      openDetails: openPokemonDetails(with:),
+      showMessage: showMessage(with:)
+    )
     let viewController = dependencies.makePokemonFeedController(actions: pokemonFeedActions)
     navigationController?.viewControllers = [viewController]
   }
@@ -48,5 +51,10 @@ final class PokemonFeedSceneFlowCoordinator {
       inputModel: detailsInputModel,
       navigationActions: pokemonFeedActions)
     navigationController?.pushViewController(viewController, animated: true)
+  }
+  
+  private func showMessage(with model: MessageAlertModel) {
+    let messageAlert = dependencies.makeMessageAlert(with: model)
+    navigationController?.present(messageAlert, animated: true)
   }
 }

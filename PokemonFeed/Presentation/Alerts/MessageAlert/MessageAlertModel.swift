@@ -7,10 +7,16 @@
 
 import Foundation
 
-struct MessageAlertModel {
+struct SimpleMessageAlertModel: MessageAlertModel {
   let title: String?
   let message: String?
   let actions: [MessageAlertAction]
+}
+
+protocol MessageAlertModel {
+  var title: String? { get }
+  var message: String? { get }
+  var actions: [MessageAlertAction] { get }
 }
 
 struct MessageAlertAction {

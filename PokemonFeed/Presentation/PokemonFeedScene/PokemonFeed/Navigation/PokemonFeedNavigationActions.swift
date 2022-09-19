@@ -9,4 +9,5 @@ import Foundation
 
 struct PokemonFeedNavigationActions {
   let openDetails: ValueCallback<PokemonDetailsInputModel>
+  let showMessage: ValueCallback<MessageAlertModel>
 }
