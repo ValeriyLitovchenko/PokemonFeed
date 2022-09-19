@@ -35,6 +35,9 @@ final class PokemonDetailsAttributeCell: BaseTableCell {
   
   // MARK: - Functions
   
+  // With empty body disables cell highlighting while tapping on it
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {}
+  
   override func configure(with model: BaseTableCellModel) {
     guard let model = model as? PokemonDetailsAttributeCellViewModel else {
       fatalError("Wrong item provided to cell")
