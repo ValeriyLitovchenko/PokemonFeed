@@ -9,4 +9,6 @@ import Foundation
 
 struct PokemonDetailsNavigationActions {
   let openVarietyDetails: ValueCallback<PokemonDetailsInputModel>
+  let showMessage: ValueCallback<MessageAlertModel>
+  let close: VoidCallback
 }

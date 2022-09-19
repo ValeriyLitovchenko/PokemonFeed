@@ -16,7 +16,7 @@ struct ImageResource {
   
   var image: UIImage? {
     let image = UIImage(named: name)
-    assert(image != nil, "Image with name \(self.name) does not exist")
+    assert(image != nil, "Image with name \(name) does not exist")
     return image
   }
 }

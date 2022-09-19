@@ -9,7 +9,7 @@ import UIKit
 
 final class PokemonFeedController: BaseTableViewController<PokemonFeedControllerView, PokemonFeedViewModel> {
   
-  // MARK: - Property
+  // MARK: - Properties
   
   override var content: [TableSectionModel] {
     viewModel.content
@@ -44,6 +44,8 @@ final class PokemonFeedController: BaseTableViewController<PokemonFeedController
     viewModel.onStateChange = { state in
       view.activityIndicator.setIsAnimating(state == .loading)
     }
+    
+    view.tableView.separatorStyle = .none
     
     viewModel.reloadContent = {
       DispatchQueue.main.async {

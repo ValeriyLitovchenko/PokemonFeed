@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PokemonFeedItemCellViewModel: BaseTableCellModel, ApplicableActionModel {
+final class PokemonFeedItemCellModel: BaseTableCellModel, ApplicableActionModel {
   
   // MARK: - Properties
   
@@ -41,13 +41,18 @@ final class PokemonFeedItemCell: BaseTableCell {
   
   // MARK: - Properties
   
-  private var model: PokemonFeedItemCellViewModel?
+  private var model: PokemonFeedItemCellModel?
   
   // MARK: - Public Functions
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setSelectionBackgroundColor(DefinedColors.lightCellSelectionColor.color)
+  }
+  
   override func configure(with model: BaseTableCellModel) {
     
-    guard let model = model as? PokemonFeedItemCellViewModel else {
+    guard let model = model as? PokemonFeedItemCellModel else {
       fatalError("Wrong item provided to cell")
     }
     

@@ -41,6 +41,11 @@ final class PokemonVarietyCell: BaseTableCell {
   
   // MARK: - Public Functions
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setSelectionBackgroundColor(DefinedColors.lightCellSelectionColor.color)
+  }
+  
   override func configure(with model: BaseTableCellModel) {
     
     guard let model = model as? PokemonVarietyCellModel else {

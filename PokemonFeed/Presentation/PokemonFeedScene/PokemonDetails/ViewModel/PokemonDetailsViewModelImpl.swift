@@ -9,8 +9,11 @@ import Foundation
 import Combine
 
 final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsViewModel {
+  private enum Constants {
+    static let maxLoadDataOnErrorRetriesCount = 2
+  }
   
-  // MARK: - Property
+  // MARK: - Properties
   
   let screenTitle: String
   
@@ -25,6 +28,10 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private var cancelable: Cancellable?
   
+  private var loadDataOnErrorRetriesCount = Int.zero
+  private var canShowLoadDataErrorMessage: Bool {
+    loadDataOnErrorRetriesCount < PokemonDetailsViewModelImpl.Constants.maxLoadDataOnErrorRetriesCount
+  }
   // MARK: - Constructor
   
   init(
@@ -55,8 +62,13 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
       switch completion {
       case .finished:
         self.onStateChange?(.dataLoaded)
+        self.loadDataOnErrorRetriesCount = .zero
+        
       case .failure:
         self.onStateChange?(.error)
+        DispatchQueue.main.async { [weak self] in
+          self?.onLoadDataOperationFailure()
+        }
       }
     }, receiveValue: { [weak self] details, species in
       guard let self = self else { return }
@@ -68,6 +80,23 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   }
   
   // MARK: - Private functions
+  
+  private func onLoadDataOperationFailure() {
+      if canShowLoadDataErrorMessage {
+        loadDataOnErrorRetriesCount += 1
+        
+        let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+          onRetry: { [weak self] in
+            self?.loadData()
+          }, onCancel: { [weak self] in
+            self?.navigationActions.close()
+          })
+        
+        navigationActions.showMessage(messageModel)
+      } else {
+        navigationActions.close()
+    }
+  }
   
   private func buildContent(
     with details: PokemonDetails,
@@ -84,7 +113,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildImageSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsImageCellViewModel(sprite: details.sprite)
+      PokemonDetailsImageCellModel(sprite: details.sprite)
     ]
     
     return TableSectionModel(items: items)
@@ -92,14 +121,14 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildAttributesSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Attributes", comment: "")),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Height", comment: "") + ":",
         value: "\(details.height)"),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Weight", comment: "") + ":",
         value: "\(details.weight)")
     ]
@@ -109,7 +138,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   private func buildAbilitiesSection(_ details: PokemonDetails) -> TableSectionModel {
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Abilities", comment: "")),
       
       PokemonDetailsAbilitiesCellModel(
@@ -125,18 +154,18 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
     }
     
     let items = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Species", comment: "")),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Generation:", comment: ""),
         value: species.generation),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Growth Rate:", comment: ""),
         value: species.growthRate),
       
-      PokemonDetailsAttributeCellViewModel(
+      PokemonDetailsAttributeCellModel(
         name: NSLocalizedString("Habitat:", comment: ""),
         value: species.habitat)
     ]
@@ -151,7 +180,7 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
     }
 
     var items: [BaseTableCellModel] = [
-      PokemonDetailsSectionTitleCellViewModel(
+      PokemonDetailsSectionTitleCellModel(
         title: NSLocalizedString("Varieties", comment: "")
       )
     ]

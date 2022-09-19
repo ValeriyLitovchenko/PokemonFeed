@@ -27,7 +27,7 @@ private struct PokemonFeedPageDTO: Decodable {
 
 private struct PokemonDTO: Pokemon, Decodable {
   
-  // MARK: - Property
+  // MARK: - Properties
   
   let id: String
   let name: String

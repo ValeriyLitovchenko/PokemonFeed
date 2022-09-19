@@ -11,6 +11,7 @@ import Combine
 final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewModel {
   private enum Constants {
     static let searchOperationDelay = RunLoop.SchedulerTimeType.Stride(0.18)
+    static let maxLoadFeedOnErrorRetriesCount = 2
   }
   
   // MARK: - Properties
@@ -22,17 +23,21 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   var onStateChange: ValueCallback<PokemonFeedViewModelState>?
   
   private let getPokemonFeedUseCase: GetPokemonFeedUseCase
-  private let actions: PokemonFeedNavigationActions
+  private let navigationActions: PokemonFeedNavigationActions
   private var cancellable: Cancellable?
   
+  private var loadFeedOnErrorRetriesCount = Int.zero
+  private var canShowLoadFeedErrorMessage: Bool {
+    loadFeedOnErrorRetriesCount < PokemonFeedViewModelImpl.Constants.maxLoadFeedOnErrorRetriesCount
+  }
   // MARK: - Constructor
   
   init(
     getPokemonFeedUseCase: GetPokemonFeedUseCase,
-    actions: PokemonFeedNavigationActions
+    navigationActions: PokemonFeedNavigationActions
   ) {
     self.getPokemonFeedUseCase = getPokemonFeedUseCase
-    self.actions = actions
+    self.navigationActions = navigationActions
   }
   
   // MARK: - Functions
@@ -69,8 +74,13 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
         switch completion {
         case .finished:
           self.onStateChange?(.dataLoaded)
+          self.loadFeedOnErrorRetriesCount = .zero
+          
         case .failure:
           self.onStateChange?(.error)
+          DispatchQueue.main.async { [weak self] in
+            self?.onLoadFeedOperationFailure(with: query)
+          }
         }
       }, receiveValue: { [weak self] pokemons in
         guard let self = self else { return }
@@ -82,16 +92,33 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   
   // MARK: - Private functions
   
-  private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
-    let items = pokemons.map { pokemon in
-      PokemonFeedItemCellViewModel(
-        title: pokemon.name.firstUppercased,
-        sprite: pokemon.sprite,
-        onAction: { [actions] in
-          actions.openDetails(PokemonDetailsInputModel(
-            pokemonId: pokemon.id,
-            pokemonName: pokemon.name.firstUppercased))
+  private func onLoadFeedOperationFailure(with retryQuery: String?) {
+    if canShowLoadFeedErrorMessage {
+      loadFeedOnErrorRetriesCount += 1
+      let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+        onRetry: { [weak self] in
+          self?.performSearch(with: retryQuery)
         })
+      
+      navigationActions.showMessage(messageModel)
+    }
+  }
+  
+  private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {
+    let items: [BaseTableCellModel]
+    if pokemons.isEmpty {
+      items = [PokemonFeedNoResultsCellModel()]
+    } else {
+      items = pokemons.map { pokemon in
+       PokemonFeedItemCellModel(
+         title: pokemon.name.firstUppercased,
+         sprite: pokemon.sprite,
+         onAction: { [navigationActions] in
+           navigationActions.openDetails(PokemonDetailsInputModel(
+             pokemonId: pokemon.id,
+             pokemonName: pokemon.name.firstUppercased))
+         })
+     }
     }
     
     return [TableSectionModel(items: items)]
