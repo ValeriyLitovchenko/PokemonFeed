@@ -9,6 +9,11 @@ import UIKit
 import Kingfisher
 
 extension UIImageView {
+  
+  /// Loads and sets image resource with provided url or sets a placeholder if resource unvailable.
+  /// - Parameters:
+  ///   - urlString: image resource url string
+  ///   - noImagePlaceholder: a substitute of image when image resource for `urlString` is not available
   func setImage(
     with urlString: String?,
     noImagePlaceholder: UIImage? = nil

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Pokemon feed request data transfer object
 struct PokemonFeedRequestDTO {
   let query: String
 }

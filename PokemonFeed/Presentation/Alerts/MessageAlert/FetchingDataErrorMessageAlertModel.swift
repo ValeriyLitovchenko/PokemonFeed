@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Specific fetch data error message alert model
 struct FetchingDataErrorMessageAlertModel: MessageAlertModel {
   
   // MARK: - Properties

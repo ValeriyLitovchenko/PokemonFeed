@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A generic object which contains all required info to setup UI for one table view or collection view section
+/// A generic object which contains all required info to setup UI for one table view section
 class SectionModel<C: CellModel> {
   
   // MARK: - Properties
@@ -21,6 +21,10 @@ class SectionModel<C: CellModel> {
   }
 }
 
+/**
+ In general each cell has it's own cell object.
+ All cells must inherit from base abstract classes.
+ */
 protocol CellModel {
   associatedtype ReusableCellType
   

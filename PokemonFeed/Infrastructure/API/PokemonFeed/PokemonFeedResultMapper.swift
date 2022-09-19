@@ -7,13 +7,8 @@
 
 import Foundation
 
+/// Provide functionality for response + data validation while Pokemons array decoding from server response
 enum PokemonFeedResultMapper {
-  private enum Error: Swift.Error {
-    case unsupportedStatusCode(Int)
-  }
-  
-  // MARK: - Functions
-  
   static func map(_ data: Data, from response: HTTPURLResponse) throws -> [Pokemon] {
     try HTTPURLResponseValidator.validate(response)
     let page = try JSONDecoder().decode(PokemonFeedPageDTO.self, from: data)
@@ -21,10 +16,12 @@ enum PokemonFeedResultMapper {
   }
 }
 
+/// Pokemons page decodable data transfer object
 private struct PokemonFeedPageDTO: Decodable {
   let results: [PokemonDTO]
 }
 
+/// Pokemon decodable data transfer object
 private struct PokemonDTO: Pokemon, Decodable {
   
   // MARK: - Properties
@@ -44,6 +41,9 @@ private struct PokemonDTO: Pokemon, Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     name = try container.decode(String.self, forKey: .name)
     
+    // Pokemon DTO in response from server contains only name and url
+    // and `id` can be received only by separate url on components
+    // and taking last which is pokemonId
     let url = try container.decode(String.self, forKey: .url)
     id = String(url.components(separatedBy: "/").dropLast().last ?? "")
     

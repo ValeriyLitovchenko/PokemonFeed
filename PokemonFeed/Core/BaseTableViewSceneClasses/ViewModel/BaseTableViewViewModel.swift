@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Base class for  TableView viewModel
 class BaseTableViewViewModel: BaseTableViewViewModelProtocol {
   
   // MARK: - Properties

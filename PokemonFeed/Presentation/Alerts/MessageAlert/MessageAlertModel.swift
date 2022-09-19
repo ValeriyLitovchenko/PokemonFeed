@@ -13,12 +13,14 @@ struct SimpleMessageAlertModel: MessageAlertModel {
   let actions: [MessageAlertAction]
 }
 
+/// Model for message alert configuration
 protocol MessageAlertModel {
   var title: String? { get }
   var message: String? { get }
   var actions: [MessageAlertAction] { get }
 }
 
+/// Action model for alert actions configuration
 struct MessageAlertAction {
   
   // MARK: - Property

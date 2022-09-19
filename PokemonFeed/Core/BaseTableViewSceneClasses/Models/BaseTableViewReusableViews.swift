@@ -7,10 +7,7 @@
 
 import UIKit
 
-/**
- In general each cell has it's own cell object.
- All cells or headers/footers must inherit from base abstract classes.
- */
+/// Base type for table cell model objects
 class BaseTableCellModel: CellModel {
   
   // MARK: - Properties
@@ -34,6 +31,7 @@ class BaseTableCellModel: CellModel {
   }
 }
 
+/// Base type for table cells
 class BaseTableCell: UITableViewCell {
   
   // MARK: - Destructor

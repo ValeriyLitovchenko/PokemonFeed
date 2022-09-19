@@ -8,13 +8,17 @@
 import UIKit
 
 protocol PokemonFeedSceneFlowCoordinatorDependencies: MessageAlertFactory {
+  /// Instantiates `PokemonFeedController`
   func makePokemonFeedController(actions: PokemonFeedNavigationActions) -> UIViewController
+  
+  /// Instantiates `PokemonDetailsController`
   func makePokemonDetailsController(
     inputModel: PokemonDetailsInputModel,
     navigationActions: PokemonDetailsNavigationActions
   ) -> UIViewController
 }
 
+/// An object that operates with pokemon feed scene flow transitions between screens
 final class PokemonFeedSceneFlowCoordinator {
   
   // MARK: - Properties

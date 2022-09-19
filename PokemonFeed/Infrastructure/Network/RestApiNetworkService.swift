@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// Rest api service for client-server interactions
 final class RestApiNetworkService: NetworkService {
   
   // MARK: - Properties

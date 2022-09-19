@@ -30,6 +30,7 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   private var canShowLoadFeedErrorMessage: Bool {
     loadFeedOnErrorRetriesCount < PokemonFeedViewModelImpl.Constants.maxLoadFeedOnErrorRetriesCount
   }
+  
   // MARK: - Constructor
   
   init(
@@ -92,16 +93,17 @@ final class PokemonFeedViewModelImpl: BaseTableViewViewModel, PokemonFeedViewMod
   
   // MARK: - Private functions
   
+  /// Shows FetchingDataErrorMessageAlert with retry operation functionality on canShowLoadFeedErrorMessage condition
   private func onLoadFeedOperationFailure(with retryQuery: String?) {
-    if canShowLoadFeedErrorMessage {
-      loadFeedOnErrorRetriesCount += 1
-      let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
-        onRetry: { [weak self] in
-          self?.performSearch(with: retryQuery)
-        })
-      
-      navigationActions.showMessage(messageModel)
-    }
+    guard canShowLoadFeedErrorMessage else { return }
+    
+    loadFeedOnErrorRetriesCount += 1
+    let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+      onRetry: { [weak self] in
+        self?.performSearch(with: retryQuery)
+      })
+    
+    navigationActions.showMessage(messageModel)
   }
   
   private func buildContent(_ pokemons: [Pokemon]) -> TableViewViewModelContent {

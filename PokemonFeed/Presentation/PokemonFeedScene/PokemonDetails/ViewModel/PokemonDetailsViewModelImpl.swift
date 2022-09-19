@@ -81,21 +81,23 @@ final class PokemonDetailsViewModelImpl: BaseTableViewViewModel, PokemonDetailsV
   
   // MARK: - Private functions
   
+  /// Shows FetchingDataErrorMessageAlert with retry operation functionality on canShowLoadDataErrorMessage condition
   private func onLoadDataOperationFailure() {
-      if canShowLoadDataErrorMessage {
-        loadDataOnErrorRetriesCount += 1
-        
-        let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
-          onRetry: { [weak self] in
-            self?.loadData()
-          }, onCancel: { [weak self] in
-            self?.navigationActions.close()
-          })
-        
-        navigationActions.showMessage(messageModel)
-      } else {
-        navigationActions.close()
+    guard canShowLoadDataErrorMessage else {
+      navigationActions.close()
+      return
     }
+    
+    loadDataOnErrorRetriesCount += 1
+    
+    let messageModel = FetchingDataErrorMessageAlertModel.modelWithActions(
+      onRetry: { [weak self] in
+        self?.loadData()
+      }, onCancel: { [weak self] in
+        self?.navigationActions.close()
+      })
+    
+    navigationActions.showMessage(messageModel)
   }
   
   private func buildContent(

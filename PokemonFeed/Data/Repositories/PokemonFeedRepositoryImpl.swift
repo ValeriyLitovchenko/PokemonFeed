@@ -50,11 +50,15 @@ final class PokemonFeedRepositoryImpl: PokemonFeedRepository {
   
   // MARK: - Private functions
   
+  /// Performs network PokemonFeedApi request operations
   private func getPokemonFeedFromNetwork() -> AnyPublisher<[Pokemon], Error> {
+    
+    // Request total pokemons count
     networkService.request(
       urlRequest: PokemonFeedApiEndpoint.getTotalCount.urlRequest(baseURL:))
       .tryMap(PokemonFeedTotalCountResultMapper.map)
       .flatMap { [networkService] totalCount in
+        // Request pokemons data with total count
         networkService.request(
           urlRequest: PokemonFeedApiEndpoint.getPokemonFeed(limit: totalCount).urlRequest(baseURL:))
           .tryMap(PokemonFeedResultMapper.map)

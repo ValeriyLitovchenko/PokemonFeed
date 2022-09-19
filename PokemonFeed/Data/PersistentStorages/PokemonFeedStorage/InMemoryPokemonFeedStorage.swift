@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// PokemonFeedStorage implementation for storing pokemons in memory
 final class InMemoryPokemonFeedStorage: PokemonFeedStorage {
   
   private enum Error: Swift.Error {
