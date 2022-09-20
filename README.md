@@ -6,9 +6,9 @@
 
 ## Build and Runtime Requirements
 
-+ Xcode 11.0 or later
++ Xcode 13.0 or later
 + iOS 13.0 or later
-+ MacOS 10.15 or later
++ MacOS macOS 11.3 or later
 
 
 ## Code Style
